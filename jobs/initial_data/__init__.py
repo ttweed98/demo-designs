@@ -8,6 +8,7 @@ from .context import InitialDesignContext
 
 class InitialDesign(DesignJob):
     """Initialize the database with default values needed by the core site designs."""
+    has_sensitive_variables = False
 
     class Meta:
         """Metadata needed to implement the backbone site design."""
