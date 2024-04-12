@@ -1,55 +1,66 @@
 ---
 manufacturers:
   - "!create_or_update:name": "Juniper"
+    slug: "juniper"
   - "!create_or_update:name": "Cisco"
+    slug: "cisco"
 
 device_types:
   - "!create_or_update:model": "PTX10016"
-    manufacturer__name: "Juniper"
+    slug: "ptx10016"
+    manufacturer__slug: "juniper"
     u_height: 21
   - "!create_or_update:model": "C8300-1N1S-6T"
-    manufacturer__name: "Cisco"
+    manufacturer__slug: "cisco"
     u_height: 1
 
-roles:
+device_roles:
   - "!create_or_update:name": "Core Router"
+    slug: "core_router"
+    color: "3f51b5"
   - "!create_or_update:name": "Edge Router"
+    slug: "edge_router"
+    color: "ffeb3b"
 
 regions:
-  - "!create_or_update:name": "Americas"
-    parent: null
-  - "!create_or_update:name": "United States"
-    parent: "Americas"
-  - "!create_or_update:name": "US-East-1"
-    parent: "United States"
-  - "!create_or_update:name": "US-West-1"
-    parent: "United States"
+    "!create_or_update:name": "Americas"
+    children:
+    - "!create_or_update:name": "United States"
+      children:
+      - "!create_or_update:name": "US-East-1"
+        sites:
+        - "!create_or_update:name": "IAD5"
+          status__name: "Active"
+          "!ref": "iad5"
+        - "!create_or_update:name": "LGA1"
+          status__name: "Active"
+          "!ref": "lga1"
 
-sites:
-  - "!create_or_update:name": "IAD5"
-    region: "US-East-1"
-  - "!create_or_update:name": "LGA1"
-    region: "US-East-1"
-  - "!create_or_update:name": "LAX11"
-    region: "US-West-1"
-  - "!create_or_update:name": "SEA1"
-    region: "US-West-1"
+      - "!create_or_update:name": "US-West-1"
+        sites:
+        - "!create_or_update:name": "LAX11"
+          status__name: "Active"
+          "!ref": "lax11"
+        - "!create_or_update:name": "SEA1"
+          status__name: "Active"
+          "!ref": "sea1"
 
 providers:
-  - "!create_or_update:name": "NTC"
+- "!create_or_update:name": "NTC"
 
 provider_networks:
   - "!create_or_update:name": "NTC-WAN"
-    provider: "NTC"
+    "!create_or_update:provider__name": "NTC"
 
 circuit_types:
   - "!create_or_update:name": "Ethernet"
 
 {% macro device(device_name, site) -%}
     - "!create_or_update:name": "{{ device_name }}.{{ site }}"
-      site: "{{ site }}"
-      device_type__model: "PTX10016"
-      role__name: "Core Router"
+      site: "!ref:{{ site }}"
+      device_type__slug: "ptx10016"
+      device_role__slug: "core_router"
+      status__name: "Planned"
 {% endmacro %}
 
 devices:
