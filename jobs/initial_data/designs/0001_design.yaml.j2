@@ -1,30 +1,26 @@
 devices:
   - "!create_or_update:name": "Device1"
-    device_type__model: "Model1"
-    device_role__name: "Role1"
-    site__name: "Site1"
+    "!create_or_update:device_type__model": "Model1"
+    "!create_or_update:device_role__name": "Role1"
+    "!create_or_update:site__name": "Site1"
     status__name: "Active"
     interfaces:
       - "!create_or_update:name": "eth0"
         type__slug: "1000base-t"
         enabled: true
-        description: "Uplink to provider"
       - "!create_or_update:name": "eth1"
         type__slug: "1000base-t"
         enabled: true
-        description: "Uplink to provider"
 
   - "!create_or_update:name": "Device2"
-    device_type__model: "Model2"
-    device_role__name: "Role2"
-    site__name: "Site2"
+    "!create_or_update:device_type__model": "Model2"
+    "!create_or_update:device_role__name": "Role2"
+    "!create_or_update:site__name": "Site2"
     status__name: "Active"
     interfaces:
       - "!create_or_update:name": "eth0"
         type__slug: "1000base-t"
         enabled: true
-        description: "Uplink to provider"
       - "!create_or_update:name": "eth1"
         type__slug: "1000base-t"
         enabled: true
-        description: "Uplink to provider"
