@@ -23,7 +23,7 @@ roles:
       - "!get:app_label": "dcim"
         "!get:model": "device" #}
 
-location_types:
+{# location_types:
   - "!create_or_update:name": "Region"
     nestable: true
   
@@ -89,7 +89,7 @@ provider_networks:
     "!create_or_update:provider__name": "NTC"
 
 circuit_types:
-  - "!create_or_update:name": "Ethernet"
+  - "!create_or_update:name": "Ethernet" #}
 
 {% macro device(device_name, site) -%}
     - "!create_or_update:name": "{{ device_name }}.{{ site }}"
