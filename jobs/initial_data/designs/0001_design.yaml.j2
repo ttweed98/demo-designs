@@ -22,12 +22,12 @@ devices:
     site__slug: "newsite"
     status__name: "Active"
     interfaces:
-      - "!create_or_update:name": "eth0"
+{#       - "!create_or_update:name": "eth0"
         type__slug: "1000base-t"
         ip_addresses:
           - "!create_or_update:address": "192.0.2.{{ i }}/24"
             status__name: "Active"
-        status__name: "Active"
+        status__name: "Active" #}
       - "!create_or_update:name": "loopback0"
         type__slug: "virtual"
         ip_addresses:
