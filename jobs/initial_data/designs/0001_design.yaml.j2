@@ -1,26 +1,72 @@
-devices:
-  - "!create_or_update:name": "Device1"
-    "!create_or_update:device_type__model": "Model1"
-    "!create_or_update:device_role__name": "Role1"
-    "!create_or_update:site__name": "Site1"
-    status__name: "Active"
-    interfaces:
-      - "!create_or_update:name": "eth0"
-        type__slug: "1000base-t"
-        enabled: true
-      - "!create_or_update:name": "eth1"
-        type__slug: "1000base-t"
-        enabled: true
+---
+manufacturers:
+  - "!create_or_update:name": "Juniper"
+  - "!create_or_update:name": "Cisco"
 
-  - "!create_or_update:name": "Device2"
-    "!create_or_update:device_type__model": "Model2"
-    "!create_or_update:device_role__name": "Role2"
-    "!create_or_update:site__name": "Site2"
-    status__name: "Active"
-    interfaces:
-      - "!create_or_update:name": "eth0"
-        type__slug: "1000base-t"
-        enabled: true
-      - "!create_or_update:name": "eth1"
-        type__slug: "1000base-t"
-        enabled: true
+device_types:
+  - "!create_or_update:model": "PTX10016"
+    manufacturer__name: "Juniper"
+    u_height: 21
+  - "!create_or_update:model": "C8300-1N1S-6T"
+    manufacturer__name: "Cisco"
+    u_height: 1
+
+roles:
+  - "!create_or_update:name": "Core Router"
+    color: "3f51b5"
+  - "!create_or_update:name": "Edge Router"
+    color: "ffeb3b"
+
+regions:
+  - "!create_or_update:name": "Americas"
+    parent: null
+  - "!create_or_update:name": "United States"
+    parent: "Americas"
+  - "!create_or_update:name": "US-East-1"
+    parent: "United States"
+  - "!create_or_update:name": "US-West-1"
+    parent: "United States"
+
+sites:
+  - "!create_or_update:name": "IAD5"
+    region: "US-East-1"
+  - "!create_or_update:name": "LGA1"
+    region: "US-East-1"
+  - "!create_or_update:name": "LAX11"
+    region: "US-West-1"
+  - "!create_or_update:name": "SEA1"
+    region: "US-West-1"
+
+providers:
+  - "!create_or_update:name": "NTC"
+
+provider_networks:
+  - "!create_or_update:name": "NTC-WAN"
+    provider: "NTC"
+
+circuit_types:
+  - "!create_or_update:name": "Ethernet"
+
+{% macro device(device_name, site) -%}
+    - "!create_or_update:name": "{{ device_name }}.{{ site }}"
+      site: "{{ site }}"
+      device_type__model: "PTX10016"
+      role__name: "Core Router"
+{% endmacro %}
+
+devices:
+    # IAD5 Core Router Pair
+    {{ device("core01", "iad5") }}
+    {{ device("core02", "iad5") }}
+
+    # LGA1 Core Router Pair
+    {{ device("core01", "lga1") }}
+    {{ device("core02", "lga1") }}
+
+    # LAX11 Core Router Pair
+    {{ device("core01", "lax11") }}
+    {{ device("core02", "lax11") }}
+
+    # SEA1 Core Router Pair
+    {{ device("core01", "sea1") }}
+    {{ device("core02", "sea1") }}
