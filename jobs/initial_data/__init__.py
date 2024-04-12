@@ -1,5 +1,5 @@
 """Initial data required for core sites."""
-from nautobot.apps.jobs import register_jobs
+# from nautobot.apps.jobs import register_jobs
 
 # from nautobot_design_builder.design_job import DesignJob
 
