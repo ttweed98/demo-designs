@@ -29,13 +29,13 @@ devices:
             status__name: "Active"
         status__name: "Active" #}
       - "!create_or_update:name": "loopback0"
-        type__slug: "virtual"
+        type: "virtual"
         ip_addresses:
           - "!create_or_update:address": "203.0.113.{{ i }}/32"
             status__name: "Active"
         status__name: "Active"
       - "!create_or_update:name": "lo0.0"
-        type__slug: "virtual"
+        type: "virtual"
         ip_addresses:
           - "!create_or_update:address": "10.0.0.{{ i }}/32"
             status__name: "Active"
