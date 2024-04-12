@@ -15,7 +15,7 @@ device_roles:
     color: "3f51b5"
 
 devices:
-{% for i in range(4) %}
+{% for i in range(250) %}
   - "!create_or_update:name": "Device{{ i }}"
     device_type__slug: "devicemodel"
     device_role__slug: "devicerole"
