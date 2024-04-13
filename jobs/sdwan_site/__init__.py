@@ -8,7 +8,7 @@ from .context import SDWANSiteContext
 class CoreSiteDesign(DesignJob):
     """Create a core backbone site."""
 
-    tenant = StringVar(label="Tenant")
+    tenant_name = StringVar(label="Tenant")
     site_name = StringVar(label="Site Name", regex=r"\w{3}\d+")
     site_prefix = IPNetworkVar(label="Site Prefix", min_prefix_length=16, max_prefix_length=22)
     management_prefix = IPNetworkVar(label="Management Prefix", min_prefix_length=24, max_prefix_length=32)
