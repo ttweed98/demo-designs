@@ -11,7 +11,10 @@
     device_role__slug: "{{ device_role_slug }}"
     site__slug: "{{ site_slug }}"
     status__name: "{{ status_name }}"
-    interfaces: {{ interfaces }}
+    interfaces:
+    {% for interface in interfaces %}
+      {{ interface }}
+    {% endfor %}
 {%- endmacro %}
 
 {% macro interface(name, status, type, primary_ip4, address, status_name, description) -%}
