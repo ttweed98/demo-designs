@@ -16,6 +16,7 @@ devices:
         type: "virtual"
         primary_ip4: true
         description: "loopback1"
+        tenant_name: "{{ tenant_name }}"
         ip_addresses:
         - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
           status__name: "Reserved"
@@ -25,6 +26,7 @@ devices:
         status__name: "Planned"
         type: "virtual"
         description: "loopback2"
+        tenant_name: "{{ tenant_name }}"
         ip_addresses:
         - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
           status__name: "Reserved"
@@ -33,12 +35,14 @@ devices:
         status__name: "Planned"
         type: "virtual"
         description: "vlan1651"
+        tenant_name: "{{ tenant_name }}"
         ip_addresses:
         - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
           status__name: "Reserved"
           
       - "!create_or_update:name": "vlan1711"
         status__name: "Planned"
+        tenant_name: "{{ tenant_name }}"
         type: "virtual"
         description: "vlan1711"
         ip_addresses:
