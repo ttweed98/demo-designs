@@ -1,0 +1,25 @@
+device_types:
+  - "!create_or_update:model": "8200"
+    slug: "8200"
+    manufacturer__slug: "cisco"
+    u_height: 1
+
+devices:
+  - "!create_or_update:name": "{{ site_name }}-wrx-a"
+    device_type__slug: "8200"
+    device_role__slug: "wanswitch"
+    site__slug: "newsite"
+    status__name: "Active"
+    interfaces:
+      - name: "loopback1"
+        status__name: "Planned"
+        type: "virtual"
+        ip_addresses:
+        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
+          status__name: "Reserved"
+      - name: "loopback2"
+        status__name: "Planned"
+        type: "virtual"
+        ip_addresses:
+        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
+          status__name: "Reserved"
