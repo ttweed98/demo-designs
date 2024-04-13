@@ -12,9 +12,9 @@
     primary_ip4: {{ primary_ip4 }}
     {% if address %}
     ip_addresses:
-    - "!create_or_update:address": "{{ address }}"
-      status__name: "{{ status_name }}"
-      description: "{{ description }}"
+      - "!create_or_update:address": "{{ address }}"
+        status__name: "{{ status_name }}"
+        description: "{{ description }}"
     {% endif %}
 {%- endmacro %}
 
