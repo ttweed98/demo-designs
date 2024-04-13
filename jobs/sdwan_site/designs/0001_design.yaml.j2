@@ -1,3 +1,13 @@
+{% macro interface(name, status, type, address, status_name, description) %}
+- "!create_or_update:name": "{{ name }}"
+  status__name: "{{ status }}"
+  type: "{{ type }}"
+  ip_addresses:
+  - "!create_or_update:address": "{{ address }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+{% endmacro %}
+
 device_types:
   - "!create_or_update:model": "8200"
     slug: "8200"
@@ -11,45 +21,10 @@ devices:
     site__slug: "{{ site_name }}"
     status__name: "Active"
     interfaces:
-      - "!create_or_update:name": "loopback1"
-        status__name: "Planned"
-        type: "virtual"
-        primary_ip4: true
-        ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
-          status__name: "Reserved"
-          description: "loopback1"
-
-      - "!create_or_update:name": "loopback2"
-        status__name: "Planned"
-        type: "virtual"
-        ip_addresses:
-        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
-          status__name: "Reserved"
-          description: "loopback2"
-      - "!create_or_update:name": "vlan1651"
-        status__name: "Planned"
-        type: "virtual"
-        ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
-          status__name: "Reserved"
-          description: "vlan1651"
-      - "!create_or_update:name": "vlan1711"
-        status__name: "Planned"
-        type: "virtual"
-        ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
-          status__name: "Reserved"
-          description: "vlan1711"
-      - "!create_or_update:name": "GigabitEthernet1/0/1"
-        status__name: "Planned"
-        type: "1000base-t"
-        description: "to {{ site_name }}-cedge-a"
-      - "!create_or_update:name": "GigabitEthernet1/0/2"
-        status__name: "Planned"
-        type: "1000base-t"
-        description: "to {{ site_name }}-cedge-a"
-      - "!create_or_update:name": "GigabitEthernet1/0/5"
-        status__name: "Planned"
-        type: "1000base-t"
-        description: "to {{ site_name }}-Lan-Core"
+      {{ interface("loopback1", "Planned", "virtual", get_management_interface_ip(site_name + '-wrx-a', 'loopback1'), "Reserved", "loopback1") }}
+      {{ interface("loopback2", "Planned", "virtual", get_site_interface_ip(site_name + '-wrx-a', 'loopback2'), "Reserved", "loopback2") }}
+      {{ interface("vlan1651", "Planned", "virtual", get_management_interface_ip(site_name + '-wrx-a', 'vlan1651'), "Reserved", "vlan1651") }}
+      {{ interface("vlan1711", "Planned", "virtual", get_management_interface_ip(site_name + '-wrx-a', 'vlan1711'), "Reserved", "vlan1711") }}
+      {{ interface("GigabitEthernet1/0/1", "Planned", "1000base-t", "", "", "to " + site_name + "-cedge-a") }}
+      {{ interface("GigabitEthernet1/0/2", "Planned", "1000base-t", "", "", "to " + site_name + "-cedge-a") }}
+      {{ interface("GigabitEthernet1/0/5", "Planned", "1000base-t", "", "", "to " + site_name + "-Lan-Core") }}
