@@ -46,3 +46,14 @@
 
 device_types:
   {{ device_type("8200", "8200", "cisco", 1) }}
+
+devices:
+  {{ device(site_name + "-wrx-a", "8200", "wanswitch", site_name, "Active", [
+    interface("loopback1", "Planned", "virtual", true, get_management_interface_ip(site_name + '-wrx-a', 'loopback1'), "Reserved", "loopback1"),
+    interface("loopback2", "Planned", "virtual", false, get_site_interface_ip(site_name + '-wrx-a', 'loopback2'), "Reserved", "loopback2"),
+    interface("vlan1651", "Planned", "virtual", false, get_management_interface_ip(site_name + '-wrx-a', 'vlan1651'), "Reserved", "vlan1651"),
+    interface("vlan1711", "Planned", "virtual", false, get_management_interface_ip(site_name + '-wrx-a', 'vlan1711'), "Reserved", "vlan1711"),
+    interface("GigabitEthernet1/0/1", "Planned", "1000base-t", false, "", "", "to " + site_name + "-cedge-a"),
+    interface("GigabitEthernet1/0/2", "Planned", "1000base-t", false, "", "", "to " + site_name + "-cedge-a"),
+    interface("GigabitEthernet1/0/5", "Planned", "1000base-t", false, "", "", "to " + site_name + "-Lan-Core")
+  ]) }}
