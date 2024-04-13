@@ -1,4 +1,4 @@
-{% macro interface(name, status, type, address='', status_name='', description='') %}
+{% macro interface(name, status, type, address='', status_name='', description='') -%}
 - "!create_or_update:name": "{{ name }}"
   status__name: "{{ status }}"
   type: "{{ type }}"
@@ -8,7 +8,7 @@
     status__name: "{{ status_name }}"
     description: "{{ description }}"
   {% endif %}
-{% endmacro %}
+{%- endmacro %}
 
 device_types:
   - "!create_or_update:model": "8200"
