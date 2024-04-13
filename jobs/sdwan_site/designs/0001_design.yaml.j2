@@ -50,7 +50,7 @@ devices:
         type: "virtual"
         description: "WRX-A-to-WRX-B"
         ip_addresses:
-        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1710') }}"
+        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1700') }}"
           status__name: "Reserved"
 
       - "!create_or_update:name": "vlan1711"
@@ -127,18 +127,6 @@ devices:
 vlans:
   {{ vlan(999, "sinkhole", "Active", site_name, "sinkhole") }}
   {{ vlan(500, "B-Biz-Internet", "Active", site_name, "B-Biz-Internet") }}
-  {{ vlan(501, "A-Public-Internet", "Active", site_name, "A-Public-Internet") }}
-  {{ vlan(502, "B-LTE", "Active", site_name, "B-LTE") }}
-  {{ vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet") }}
-  {{ vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
-  {{ vlan(1651, "vlan1651", "Active", site_name, "sitevlans") }}
-  {{ vlan(1711, "vlan1711", "Active", site_name, "sitevlans") }}
-  {{ vlan(1700, "WRX-A-to-WRX-B", "Active", site_name, "WRX-A-to-WRX-B") }}
-  {{ vlan(1702, "WRX-B-to-LAN", "Active", site_name, "WRX-B-to-LAN") }}
-  {{ vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB") }}
-  {{ vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B") }}
-  {{ vlan(604, "Guest-WRX-B--EdgeA", "Active", site_name, "Guest-WRX-B--EdgeA") }}
-  {{ vlan(612, "name DIA-Provisioning", "Active", site_name, "name DIA-Provisioning") }}
 
 prefixes:
   {{ prefix(site_prefix, site_name, "Reserved", "WAN", tenant_name) }}
