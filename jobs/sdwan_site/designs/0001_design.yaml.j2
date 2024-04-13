@@ -71,3 +71,16 @@ vlans:
     status__name: "Active"
     site__name: "{{ site_name }}"
     description: "sitevlans"
+
+prefixes:
+  - prefix: "{{ site_prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "Reserved"
+    description: "WAN"
+    tenant__name: "{{ tenant_name }}"
+    
+  - prefix: "{{ management_prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "Reserved"
+    description: "Management"
+    tenant__name: "{{ tenant_name }}"
