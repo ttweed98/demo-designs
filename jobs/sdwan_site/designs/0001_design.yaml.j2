@@ -51,8 +51,13 @@ devices:
         mode: "tagged"
         tagged_vlans:
           - vid: 1651
+            name: "vlan1651"
+            status__name: "Active"
           - vid: 1711
-    
+            name: "vlan1711"
+            status__name: "Active"
+
+
       - "!create_or_update:name": "GigabitEthernet1/0/2"
         status__name: "Planned"
         type: "1000base-t"
@@ -60,7 +65,12 @@ devices:
         mode: "tagged"
         tagged_vlans:
           - vid: 1651
+            name: "vlan1651"
+            status__name: "Active"
           - vid: 1711
+            name: "vlan1711"
+            status__name: "Active"
+
 
       - "!create_or_update:name": "GigabitEthernet1/0/5"
         status__name: "Planned"
@@ -69,7 +79,11 @@ devices:
         mode: "tagged"
         tagged_vlans:
           - vid: 1651
+            name: "vlan1651"
+            status__name: "Active"
           - vid: 1711
+            name: "vlan1711"
+            status__name: "Active"
 
 vlans:
   - vlan_id: 1651
