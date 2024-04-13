@@ -47,45 +47,87 @@ devices:
       - "!create_or_update:name": "GigabitEthernet1/0/1"
         status__name: "Planned"
         type: "1000base-t"
-        description: "to {{ site_name }}-cedge-a"
+        description: "description CX: {{site_name}}-B_GI0/0/0"
         mode: "tagged"
         tagged_vlans:
-          - vid: 1651
-            name: "vlan1651"
+          - vid: 500
+            name: "B-Biz-Internet"
             status__name: "Active"
-          - vid: 1711
-            name: "vlan1711"
+          - vid: 501
+            name: "A-Public-Internet"
+            status__name: "Active"
+          - vid: 502
+            name: "B-LTE"
+            status__name: "Active"
+          - vid: 503
+            name: "A-MPLS-Internet"
             status__name: "Active"
 
 
       - "!create_or_update:name": "GigabitEthernet1/0/2"
         status__name: "Planned"
         type: "1000base-t"
-        description: "to {{ site_name }}-cedge-a"
+        description: "description CX: {{site_name}}-B_GI0/0/1"
         mode: "tagged"
         tagged_vlans:
+          - vid: 601
+            name: "Guest-WRX-B--EdgeB"
+            status__name: "Active"
+          - vid: 603
+            name: "Guest-WRX-A--Edge-B"
+            status__name: "Active"
+          - vid: 1650
+            name: "WRX-to-Edge"
+            status__name: "Active"
           - vid: 1651
             name: "vlan1651"
-            status__name: "Active"
-          - vid: 1711
-            name: "vlan1711"
             status__name: "Active"
 
 
       - "!create_or_update:name": "GigabitEthernet1/0/5"
         status__name: "Planned"
         type: "1000base-t"
-        description: "to {{ site_name }}-Lan-Core"
-        mode: "tagged"
-        tagged_vlans:
-          - vid: 1651
-            name: "vlan1651"
-            status__name: "Active"
-          - vid: 1711
-            name: "vlan1711"
-            status__name: "Active"
+        description: "description CX: {{ LAN_hostname | default('Unknown') }}_{{ host_interface-B | default('Unknown') }}"
+        mode: "tagged_all"
+
 
 vlans:
+  - vid: 999
+    name: "sinkhole"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "sinkhole"
+
+  - vid: 500
+    name: "B-Biz-Internet"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "B-Biz-Internet"
+
+  - vid: 501
+    name: "A-Public-Internet"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "A-Public-Internet"
+
+  - vid: 502
+    name: "B-LTE"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "B-LTE"
+
+  - vid: 503
+    name: "A-MPLS-Internet"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "A-MPLS-Internet"
+
+  - vid: 1650
+    name: "WRX-to-Edge"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "WRX-to-Edge"
+
   - vid: 1651
     name: "vlan1651"
     status__name: "Active"
@@ -97,6 +139,42 @@ vlans:
     status__name: "Active"
     site__name: "{{ site_name }}"
     description: "sitevlans"
+
+  - vid: 1700
+    name: "WRX-A-to-WRX-B"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "WRX-A-to-WRX-B"
+
+  - vid: 1702
+    name: "WRX-B-to-LAN"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "WRX-B-to-LAN"
+
+  - vid: 601
+    name: "Guest-WRX-B--EdgeB"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "Guest-WRX-B--EdgeB"
+
+  - vid: 603
+    name: "Guest-WRX-A--Edge-B"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "Guest-WRX-A--Edge-B"
+
+  - vid: 604
+    name: "Guest-WRX-B--EdgeA"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "Guest-WRX-B--EdgeA"
+
+  - vid: 612
+    name: "name DIA-Provisioning"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "name DIA-Provisioning"
 
 prefixes:
   - prefix: "{{ site_prefix }}"
