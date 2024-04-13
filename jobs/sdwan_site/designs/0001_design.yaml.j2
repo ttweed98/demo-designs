@@ -58,3 +58,16 @@ devices:
         status__name: "Planned"
         type: "1000base-t"
         description: "to {{ site_name }}-Lan-Core"
+
+vlans:
+  - vlan_id: 1651
+    name: "vlan1651"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "sitevlans"
+
+  - vlan_id: 1711
+    name: "vlan1711"
+    status__name: "Active"
+    site__name: "{{ site_name }}"
+    description: "sitevlans"
