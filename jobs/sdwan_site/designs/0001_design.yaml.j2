@@ -1,46 +1,46 @@
 {% macro device_type(model, slug, manufacturer_slug, u_height) -%}
-- "!create_or_update:model": "{{ model }}"
-  slug: "{{ slug }}"
-  manufacturer__slug: "{{ manufacturer_slug }}"
-  u_height: {{ u_height }}
+  - "!create_or_update:model": "{{ model }}"
+    slug: "{{ slug }}"
+    manufacturer__slug: "{{ manufacturer_slug }}"
+    u_height: {{ u_height }}
 {%- endmacro %}
 
 {% macro device(name, device_type_slug, device_role_slug, site_slug, status_name, interfaces) -%}
-- "!create_or_update:name": "{{ name }}"
-  device_type__slug: "{{ device_type_slug }}"
-  device_role__slug: "{{ device_role_slug }}"
-  site__slug: "{{ site_slug }}"
-  status__name: "{{ status_name }}"
-  interfaces: {{ interfaces }}
+  - "!create_or_update:name": "{{ name }}"
+    device_type__slug: "{{ device_type_slug }}"
+    device_role__slug: "{{ device_role_slug }}"
+    site__slug: "{{ site_slug }}"
+    status__name: "{{ status_name }}"
+    interfaces: {{ interfaces }}
 {%- endmacro %}
 
 {% macro interface(name, status, type, primary_ip4=false, address='', status_name='', description='') -%}
-- "!create_or_update:name": "{{ name }}"
-  status__name: "{{ status }}"
-  type: "{{ type }}"
-  primary_ip4: {{ primary_ip4 }}
-  {% if address %}
-  ip_addresses:
-  - "!create_or_update:address": "{{ address }}"
-    status__name: "{{ status_name }}"
-    description: "{{ description }}"
-  {% endif %}
+  - "!create_or_update:name": "{{ name }}"
+    status__name: "{{ status }}"
+    type: "{{ type }}"
+    primary_ip4: {{ primary_ip4 }}
+    {% if address %}
+    ip_addresses:
+    - "!create_or_update:address": "{{ address }}"
+      status__name: "{{ status_name }}"
+      description: "{{ description }}"
+    {% endif %}
 {%- endmacro %}
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
-- vid: {{ vid }}
-  name: "{{ name }}"
-  status__name: "{{ status_name }}"
-  site__name: "{{ site_name }}"
-  description: "{{ description }}"
+  - vid: {{ vid }}
+    name: "{{ name }}"
+    status__name: "{{ status_name }}"
+    site__name: "{{ site_name }}"
+    description: "{{ description }}"
 {%- endmacro %}
 
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
-- prefix: "{{ prefix }}"
-  site__name: "{{ site_name }}"
-  status__name: "{{ status_name }}"
-  description: "{{ description }}"
-  tenant__name: "{{ tenant_name }}"
+  - prefix: "{{ prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
 {%- endmacro %}
 
 
