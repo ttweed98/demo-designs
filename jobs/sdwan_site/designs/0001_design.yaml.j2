@@ -53,14 +53,6 @@ devices:
         - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1700') }}"
           status__name: "Reserved"
 
-      - "!create_or_update:name": "vlan1711"
-        status__name: "Planned"
-        type: "virtual"
-        description: "WRX-B-to-WRX-A"
-        ip_addresses:
-        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1711') }}"
-          status__name: "Reserved"
-
       - "!create_or_update:name": "GigabitEthernet1/0/1"
         status__name: "Planned"
         type: "1000base-t"
