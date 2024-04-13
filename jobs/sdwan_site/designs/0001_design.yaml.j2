@@ -48,25 +48,37 @@ devices:
         status__name: "Planned"
         type: "1000base-t"
         description: "to {{ site_name }}-cedge-a"
-
+        mode: "tagged"
+        tagged_vlans:
+          - vid: 1651
+          - vid: 1711
+    
       - "!create_or_update:name": "GigabitEthernet1/0/2"
         status__name: "Planned"
         type: "1000base-t"
         description: "to {{ site_name }}-cedge-a"
+        mode: "tagged"
+        tagged_vlans:
+          - vid: 1651
+          - vid: 1711
 
       - "!create_or_update:name": "GigabitEthernet1/0/5"
         status__name: "Planned"
         type: "1000base-t"
         description: "to {{ site_name }}-Lan-Core"
+        mode: "tagged"
+        tagged_vlans:
+          - vid: 1651
+          - vid: 1711
 
 vlans:
-  - vid: 1651
+  - vlan_id: 1651
     name: "vlan1651"
     status__name: "Active"
     site__name: "{{ site_name }}"
     description: "sitevlans"
 
-  - vid: 1711
+  - vlan_id: 1711
     name: "vlan1711"
     status__name: "Active"
     site__name: "{{ site_name }}"
@@ -78,7 +90,7 @@ prefixes:
     status__name: "Reserved"
     description: "WAN"
     tenant__name: "{{ tenant_name }}"
-    
+
   - prefix: "{{ management_prefix }}"
     site__name: "{{ site_name }}"
     status__name: "Reserved"
