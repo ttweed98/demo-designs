@@ -34,7 +34,6 @@ interfaces:
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
-    is_primary: true
     "!ref": "interface_loopback1"
     ip_addresses:
       - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
@@ -42,6 +41,7 @@ interfaces:
         description: "loopback1"
         vrf__name: "kgs-management"
         tenant__name: "{{ tenant_name }}"
+        is_primary: true
         "!ref": "loopback1-address"
 
 
