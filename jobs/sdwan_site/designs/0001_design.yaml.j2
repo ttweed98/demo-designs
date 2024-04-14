@@ -110,9 +110,10 @@ interface_redundancy_groups:
     description: "test"
     protocol: "vrrp"
     protocol_group_id: 14
+    "!ref": "kgs-irg"
 
 interface_redundancy_group_associations:
-  - interface_redundancy_group: "!ref:kgs-management"
+  - interface_redundancy_group: "!ref:kgs-irg"
     interface: "!ref:loopback1"
     priority: 110
 
