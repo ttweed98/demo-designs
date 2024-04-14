@@ -119,6 +119,24 @@ interfaces:
         name: "vlan1651"
         status__name: "Active"
 
+interface_redundancy_groups:
+  - "!create_or_update:name": "wrx-a"
+    status__name: "Active"
+    description: "test"
+    protocol: "vrrp"
+    protocol_group_id: 14
+    virtual_ip: "!ref:loopback1-address"
+    "!ref": "kgs-irg"
+
+interface_redundancy_group_associations:
+  - interface_redundancy_group: "!ref:kgs-irg"
+    interface: "!ref:interface_loopback1"
+    priority: 110
+
+  - interface_redundancy_group: "!ref:kgs-irg"
+    interface: "!ref:interface_loopback2"
+    priority: 100
+
   
 {% macro vlan(vid, name, status_name, site_name, description) -%}
   - vid: {{ vid }}
