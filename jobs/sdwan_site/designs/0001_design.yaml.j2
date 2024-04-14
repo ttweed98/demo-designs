@@ -65,6 +65,11 @@ vrfs:
     tenant__name: "{{ tenant_name }}"
     "!ref": "vrf_kgs_lan"
 
+  - "!create_or_update:name": "guest"
+    description: "guest"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_guest"
+
 interfaces:
   - "!create_or_update:name": "loopback1"
     device: "!ref:device_wrx_a"
