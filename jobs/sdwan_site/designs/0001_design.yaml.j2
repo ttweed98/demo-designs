@@ -90,19 +90,6 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/1"
     mode: "tagged"
-    tagged_vlans:
-      - vid: 500
-        name: "B-Biz-Internet"
-        status__name: "Active"
-      - vid: 501
-        name: "A-Public-Internet"
-        status__name: "Active"
-      - vid: 502
-        name: "B-LTE"
-        status__name: "Active"
-      - vid: 503
-        name: "A-MPLS-Internet"
-        status__name: "Active"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
@@ -110,19 +97,6 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/2"
     mode: "tagged"
-    tagged_vlans:
-      - vid: 601
-        name: "Guest-WRX-B--EdgeB"
-        status__name: "Active"
-      - vid: 603
-        name: "Guest-WRX-A--Edge-B"
-        status__name: "Active"
-      - vid: 1650
-        name: "WRX-to-Edge"
-        status__name: "Active"
-      - vid: 1651
-        name: "vlan1651"
-        status__name: "Active"
 
 interface_redundancy_groups:
   - "!create_or_update:name": "wrx-a"
