@@ -5,6 +5,12 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
+roles:
+  - "!create_or_update:name": "wanswitch-vlans"
+    slug: "wanswitch-vlans
+    color: "00ff00"
+    "!ref": "wanswitch-vlans"
+
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
     device_type: "!ref:device_type_8200"
