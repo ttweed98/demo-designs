@@ -1,53 +1,54 @@
 device_types:
   - "!create_or_update:model": "8200"
-    slug: "!ref": "8200"
+    slug: "8200"
     manufacturer__slug: "cisco"
     u_height: 1
+    "!ref": "device_type_8200"
 
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
-    device_type__slug: "!ref:8200"
+    device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
-    "!tag:reference": "device_wrx_a"
+    "!ref": "device_wrx_a"
 
 interfaces:
   - "!create_or_update:name": "loopback1"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
-    "!tag:reference": "interface_loopback1"
+    "!ref": "interface_loopback1"
 
   - "!create_or_update:name": "loopback2"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
-    "!tag:reference": "interface_loopback2"
+    "!ref": "interface_loopback2"
 
   - "!create_or_update:name": "vlan1651"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
-    "!tag:reference": "interface_vlan1651"
+    "!ref": "interface_vlan1651"
 
   - "!create_or_update:name": "vlan1711"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
-    "!tag:reference": "interface_vlan1711"
+    "!ref": "interface_vlan1711"
 
   - "!create_or_update:name": "GigabitEthernet1/0/1"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "1000base-t"
-    "!tag:reference": "interface_GigabitEthernet1/0/1"
+    "!ref": "interface_GigabitEthernet1/0/1"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "1000base-t"
-    "!tag:reference": "interface_GigabitEthernet1/0/2"
+    "!ref": "interface_GigabitEthernet1/0/2"
 
 ip_addresses:
   - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
@@ -55,28 +56,28 @@ ip_addresses:
     description: "loopback1"
     vrf__name: "kgs-management"
     interface: "!ref:interface_loopback1"
-    "!tag:reference": "ip_address_loopback1"
+    "!ref": "ip_address_loopback1"
 
   - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
     status__name: "Reserved"
     description: "loopback2"
     vrf__name: "kgs-management"
     interface: "!ref:interface_loopback2"
-    "!tag:reference": "ip_address_loopback2"
+    "!ref": "ip_address_loopback2"
 
   - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
     status__name: "Reserved"
     description: "vlan1651"
     vrf__name: "kgs-management"
     interface: "!ref:interface_vlan1651"
-    "!tag:reference": "ip_address_vlan1651"
+    "!ref": "ip_address_vlan1651"
 
   - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
     status__name: "Reserved"
     description: "vlan1711"
     vrf__name: "kgs-management"
     interface: "!ref:interface_vlan1711"
-    "!tag:reference": "ip_address_vlan1711"
+    "!ref": "ip_address_vlan1711"
 
 vrfs:
   - "!create_or_update:name": "kgs-management"
@@ -101,7 +102,7 @@ interface_redundancy_groups:
     protocol: "vrrp"
     protocol_group_id: 14
     virtual_ip: "!ref:ip_address_loopback1"
-    "!tag:reference": "irg_wrx_a"
+    "!ref": "irg_wrx_a"
 
 interface_redundancy_group_associations:
   - interface_redundancy_group: "!ref:irg_wrx_a"
