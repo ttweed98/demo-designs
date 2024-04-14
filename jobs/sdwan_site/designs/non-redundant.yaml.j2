@@ -76,11 +76,11 @@ vrfs:
     "!ref": "vrf_guest"
 
 interfaces:
-  - "!create_or_update:name": "loopback1"
+  - "!create_or_update:description": "{{ site_name }}-WRX-B_Data_Loopback"
     device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
-    description: "{{ site_name }}-WRX-B_Data_Loopback"
+    name: "loopback1"
     "!ref": "interface_loopback1"
     ip_addresses:
       - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-WRX-B', 'loopback1') }}"
@@ -91,11 +91,11 @@ interfaces:
         "!ref": "loopback1-address"
 
 
-  - "!create_or_update:name": "loopback2"
+  - "!create_or_update:description": "{{ site_name }}-WRX-B_Customer_Loopback"
     device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
-    description: "{{ site_name }}-WRX-B_Customer_Loopback"
+    name: "loopback2"
     "!ref": "interface_loopback2"
     ip_addresses:
       - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-WRX-B', 'loopback2') }}"
