@@ -27,7 +27,6 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
-    role__slug: "wanswitch_vlans"
     "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
