@@ -106,7 +106,7 @@ interface_redundancy_groups:
   - "!create_or_update:name": "wrx-a"
     status__name: "Active"
     description: "test"
-    protocol: "VRRP"
+    protocol__name: "VRRP"
 
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
