@@ -107,7 +107,6 @@ interface_redundancy_groups:
     description: "test-wrx-a"
     status__name: "Active"
     virtual_ip: "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
-    protocol__name: "vrrp"
     protocol_group_id: 14
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
