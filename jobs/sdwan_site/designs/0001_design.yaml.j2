@@ -108,6 +108,9 @@ interface_redundancy_groups:
     description: "test"
     protocol: "vrrp"
     protocol_group_id: 14
+    interface_redundancy_group_associations:
+      - interface: "loopback1"
+        priority: 110
 
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
