@@ -31,4 +31,4 @@ class CoreSiteDesign(DesignJob):
         """Override the run method to set the design file before running the job."""
         # Set the design file based on user input
         self.Meta.design_file = self.get_design_file()
-        super().run(kwargs['data'], kwargs['commit'])
+        super().run(kwargs)
