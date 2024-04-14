@@ -73,8 +73,12 @@ ip_addresses:
     status__name: "Reserved"
     description: "abc"
     tenant__name: "{{tenant_name}}"
-    device__name: "{{ site_name }}-wrx-a"
+    "!ref": "interface_loopback1_address"
 
+ip_addresses_to_interfaces:
+  - ip_address: "!ref:interface_loopback1_address"
+    interface: "!ref:interface_loopback1"
+    is_primary: true
 
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
