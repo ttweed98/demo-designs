@@ -6,8 +6,12 @@ device_types:
     "!ref": "device_type_8200"
 
 roles:
-  - "!create_or_update:name": "wanswitch_vlans"
-    slug: "devicerole"
+  - "!create_or_update:name": "{{ site_name }}_ipam"
+    slug: "{{ site_name }}_ipam"
+    weight: 1000
+
+  - "!create_or_update:name": "{{ site_name }}_vlans"
+    slug: "{{ site_name }}_vlans"
     weight: 1000
 
 devices:
@@ -32,6 +36,7 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_vlans"
     "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
@@ -268,6 +273,7 @@ interface_redundancy_group_associations:
     status__name: "{{ status_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_ipam"
 {%- endmacro %}
 
 
