@@ -19,7 +19,7 @@ devices:
     "!ref": "device_wrx_a"
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
-  - vid: {{ vid }}
+  - "!create_or_update:vid": "{{ vid }}"
     name: "{{ name }}"
     status__name: "{{ status_name }}"
     site__name: "{{ site_name }}"
