@@ -10,8 +10,8 @@ roles:
     slug: "{{ site_name }}_ipam"
     weight: 1000
 
-  - "!create_or_update:name": "{{ wanswitch }}_vlans"
-    slug: "{{ wanswitch }}_vlans"
+  - "!create_or_update:name": "wanswitch_vlans"
+    slug: "wanswitch_vlans"
     weight: 1000
 
 devices:
@@ -36,7 +36,7 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
-    role__name: "{{ wanswitch }}_vlans"
+    role__name: "wanswitch_vlans"
     "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
