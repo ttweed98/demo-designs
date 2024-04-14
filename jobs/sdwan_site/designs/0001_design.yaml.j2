@@ -115,6 +115,9 @@ interfaces:
     status__name: "Planned"
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/1"
+    mode: "tagged"
+    tagged_vlans:
+      - "!ref:vlan500"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
