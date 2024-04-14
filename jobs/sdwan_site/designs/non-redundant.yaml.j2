@@ -18,15 +18,22 @@ devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-b"
     device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
-    site__name: "{{ site_name }}"
+    site__slug: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "cisco_iosxe"
     status__name: "Active"
     local_context_data:
-      "site_name": "{{ site_name }}"
-      "tenant_name": "{{ tenant_name }}"
-      "management_prefix": "{{ management_prefix }}"
-      "site_prefix": "{{ site_prefix }}"
+      ospf:
+        - loopback1:
+             area: 0
+             pid: 2
+        - loopback2:
+             area: 0
+             pid: 1
+        - vlan1650:
+             area: 0
+             pid: 1
+             network: point-to-point
     "!ref": "device_wrx_b"
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
