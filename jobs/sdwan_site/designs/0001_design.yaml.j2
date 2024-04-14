@@ -26,6 +26,7 @@ devices:
       - "!create_or_update:name": "loopback2"
         status__name: "Planned"
         type: "virtual"
+        "!ref": "loopback2"
         ip_addresses:
         - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
           status__name: "Reserved"
@@ -119,6 +120,10 @@ interface_redundancy_group_associations:
   - interface_redundancy_group: "!ref:kgs-irg"
     interface: "!ref:loopback1"
     priority: 110
+
+  - interface_redundancy_group: "!ref:kgs-irg"
+    interface: "!ref:loopback2"
+    priority: 100
 
   
 
