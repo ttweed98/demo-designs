@@ -30,5 +30,5 @@ class CoreSiteDesign(DesignJob):
     def run(self, **kwargs):  # pylint: disable=arguments-differ
         """Render the design and implement it within a build Environment object."""
         # Set the design file based on user input
-        self.Meta.design_file = self.data.get('design_file')
+        self.Meta.design_file = kwargs.get('data', {}).get('design_file')
         super().run(**kwargs)
