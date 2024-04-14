@@ -104,9 +104,7 @@ vrfs:
 
 interface_redundancy_groups:
   - "!create_or_update:name": "wrx-a"
-    description: "wrx-a"
     status__name: "Active"
-    virtual_ip: "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
 
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
