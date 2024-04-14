@@ -11,6 +11,11 @@ devices:
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
+    local_context_data:
+      "site_name": "{{ site_name }}"
+      "tenant_name": "{{ tenant_name }}"
+      "management_prefix": "{{ management_prefix }}"
+      "site_prefix": "{{ site_prefix }}"
     "!ref": "device_wrx_a"
 
 vrfs:
