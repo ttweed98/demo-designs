@@ -35,12 +35,24 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_loopback1"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
+        status__name: "Reserved"
+        description: "loopback1"
+        vrf__name: "kgs-management"
+        is_primary: true
+        "!ref": "loopback1-address"
+
 
   - "!create_or_update:name": "loopback2"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_loopback2"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
+        status__name: "Reserved"
+        description: "loopback2"
 
 
   - "!create_or_update:name": "vlan1651"
@@ -48,6 +60,10 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_vlan1651"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
+        status__name: "Reserved"
+        description: "vlan1651"
 
 
   - "!create_or_update:name": "vlan1711"
@@ -55,32 +71,52 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_vlan1711"
+    ip_addresses:
+    - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
+      status__name: "Reserved"
+      description: "vlan1711"
 
   - "!create_or_update:name": "GigabitEthernet1/0/1"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/1"
+    mode: "tagged"
+    tagged_vlans:
+      - vid: 500
+        name: "B-Biz-Internet"
+        status__name: "Active"
+      - vid: 501
+        name: "A-Public-Internet"
+        status__name: "Active"
+      - vid: 502
+        name: "B-LTE"
+        status__name: "Active"
+      - vid: 503
+        name: "A-MPLS-Internet"
+        status__name: "Active"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/2"
+    mode: "tagged"
+    tagged_vlans:
+      - vid: 601
+        name: "Guest-WRX-B--EdgeB"
+        status__name: "Active"
+      - vid: 603
+        name: "Guest-WRX-A--Edge-B"
+        status__name: "Active"
+      - vid: 1650
+        name: "WRX-to-Edge"
+        status__name: "Active"
+      - vid: 1651
+        name: "vlan1651"
+        status__name: "Active"
+
   
-ip_addresses:
-  - address: 1.1.1.1/32
-    status__name: "Reserved"
-    description: "abc"
-    tenant__name: "{{tenant_name}}"
-    "!ref": "interface_loopback1_address"
-
-ip_address_assignments:
-  - ip_address: "!ref:interface_loopback1_address"
-    interface: "!ref:interface_loopback1"
-    is_primary: true
-
-
 {% macro vlan(vid, name, status_name, site_name, description) -%}
   - vid: {{ vid }}
     name: "{{ name }}"
