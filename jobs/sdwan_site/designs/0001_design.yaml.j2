@@ -88,7 +88,7 @@ devices:
         type: "1000base-t"
         description: "CX: <<LAN_hostname>>_<<host_interface>>"
 
-vrf_groups:
+vrf:
   - "!create_or_update:name": "kgs-management"
     description: "kgs-management"
     tenant__name: "{{ tenant_name }}"
