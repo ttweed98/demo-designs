@@ -159,5 +159,5 @@ interface_redundancy_group_associations:
 
 
 prefixes:
-  {{ prefix(site_prefix, site_name, "Reserved", "WAN", tenant_name) }}
+  {{ prefix(site_prefix, site_name, "Reserved", tenant__name + " Site Prefixes", tenant_name) }}
   {{ prefix(management_prefix, site_name, "Reserved", "Management", "KGS") }}
