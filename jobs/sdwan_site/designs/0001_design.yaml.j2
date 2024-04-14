@@ -25,6 +25,7 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
+    "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
 vlans:
@@ -115,6 +116,8 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/1"
     mode: "tagged"
+    tagged_vlans:
+      - "!ref:vlan500"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
