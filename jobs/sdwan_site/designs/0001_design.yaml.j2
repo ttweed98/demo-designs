@@ -13,6 +13,22 @@ devices:
     status__name: "Active"
     "!ref": "device_wrx_a"
 
+vrfs:
+  - "!create_or_update:name": "kgs-management"
+    description: "kgs-management"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_management"
+
+  - "!create_or_update:name": "kgs-wan"
+    description: "kgs-wan"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_wan"
+
+  - "!create_or_update:name": "kgs-lan"
+    description: "kgs-lan"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_lan"
+
 interfaces:
   - "!create_or_update:name": "loopback1"
     device: "!ref:device_wrx_a"
@@ -80,21 +96,7 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/2"
 
-vrfs:
-  - "!create_or_update:name": "kgs-management"
-    description: "kgs-management"
-    tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_management"
 
-  - "!create_or_update:name": "kgs-wan"
-    description: "kgs-wan"
-    tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_wan"
-
-  - "!create_or_update:name": "kgs-lan"
-    description: "kgs-lan"
-    tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_lan"
 
 interface_redundancy_groups:
   - "!create_or_update:name": "wrx-a"
