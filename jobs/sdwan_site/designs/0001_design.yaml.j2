@@ -40,6 +40,7 @@ interfaces:
         status__name: "Reserved"
         description: "loopback1"
         vrf__name: "kgs-management"
+        tenant__name: "{{ tenant_name }}"
         is_primary: true
         "!ref": "loopback1-address"
 
@@ -53,6 +54,7 @@ interfaces:
       - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
         status__name: "Reserved"
         description: "loopback2"
+        tenant__name: "{{ tenant_name }}"
 
 
   - "!create_or_update:name": "vlan1651"
@@ -64,6 +66,7 @@ interfaces:
       - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
         status__name: "Reserved"
         description: "vlan1651"
+        tenant__name: "{{ tenant_name }}"
 
 
   - "!create_or_update:name": "vlan1711"
@@ -75,6 +78,7 @@ interfaces:
     - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
       status__name: "Reserved"
       description: "vlan1711"
+      tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "GigabitEthernet1/0/1"
     device: "!ref:device_wrx_a"
