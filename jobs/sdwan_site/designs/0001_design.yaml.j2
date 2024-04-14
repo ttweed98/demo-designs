@@ -5,12 +5,19 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
+tags:
+    - "!create_or_update:name": "config_template"
+      slug: "config_template"
+      color: "00ff00"
+      "!ref": "config_template"
+
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
     device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
+    tags: "!ref:config_template"
     local_context_data:
       "site_name": "{{ site_name }}"
       "tenant_name": "{{ tenant_name }}"
