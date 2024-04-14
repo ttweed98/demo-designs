@@ -18,6 +18,7 @@ devices:
         - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
           status__name: "Reserved"
           description: "loopback1"
+          vrf: "kgs-management"
 
       - "!create_or_update:name": "loopback2"
         status__name: "Planned"
