@@ -13,11 +13,12 @@ class CoreSiteDesign(DesignJob):
     site_prefix = IPNetworkVar(label="Site Prefix", min_prefix_length=27, max_prefix_length=32)
     management_prefix = IPNetworkVar(label="Management Prefix", min_prefix_length=28, max_prefix_length=32)
     molex_silverpeak_prefix = IPNetworkVar(label="Molex Silverpeak Prefix", min_prefix_length=28, max_prefix_length=32)
+    design_file = StringVar(label="Design File")
 
     class Meta:
         """Metadata needed to implement the backbone site design."""
 
         name = "Sdwan Site Design"
         commit_default = False
-        design_file = "designs/non-redundant.yaml.j2"
+        #design_file = "designs/non-redundant.yaml.j2"
         context_class = SDWANSiteContext
