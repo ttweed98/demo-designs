@@ -5,11 +5,6 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
-device_roles:
-  - "!create_or_update:name": "wanswitch_vlans"
-    slug: "wanswitch_vlans"
-    color: "3f51b5"
-
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
     device_type: "!ref:device_type_8200"
@@ -156,7 +151,7 @@ interface_redundancy_group_associations:
 
   
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
-  - prefix: "{{ prefix }}"
+  - "!create_or_update:prefix": "{{ prefix }}"
     site__name: "{{ site_name }}"
     status__name: "{{ status_name }}"
     description: "{{ description }}"
