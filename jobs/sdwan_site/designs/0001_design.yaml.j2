@@ -5,6 +5,11 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
+ipam_roles:
+  - "!create_or_update:name": "wanswitch_vlans"
+    slug: "devicerole"
+    weight: 1000
+
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-b"
     device_type: "!ref:device_type_8200"
@@ -18,7 +23,7 @@ devices:
       "tenant_name": "{{ tenant_name }}"
       "management_prefix": "{{ management_prefix }}"
       "site_prefix": "{{ site_prefix }}"
-    "!ref": "device_wrx_a"
+    "!ref": "device_wrx_b"
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
   - "!create_or_update:vid": "{{ vid }}"
@@ -72,7 +77,7 @@ vrfs:
 
 interfaces:
   - "!create_or_update:name": "loopback1"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "{{ site_name }}-WRX-B_Data_Loopback"
@@ -87,7 +92,7 @@ interfaces:
 
 
   - "!create_or_update:name": "loopback2"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "{{ site_name }}-WRX-B_Customer_Loopback"
@@ -99,7 +104,7 @@ interfaces:
         tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan1650"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "Customer Mgmnt-B"
@@ -111,7 +116,7 @@ interfaces:
         tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan1651"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "KGS Mgmnt-B"
@@ -124,7 +129,7 @@ interfaces:
         tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan1700"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "WRX-A-to-WRX-B"
@@ -136,7 +141,7 @@ interfaces:
         tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan1711"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "WRX-A-to-WRX-B"
@@ -149,7 +154,7 @@ interfaces:
       tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan601"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "Guest-WRX-B--EdgeB"
@@ -161,7 +166,7 @@ interfaces:
         tenant__name: "{{ tenant_name }}"
 
   - "!create_or_update:name": "vlan612"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "DIA-Provisioning"
@@ -174,7 +179,7 @@ interfaces:
         vrf__name: "guest"
 
   - "!create_or_update:name": "vlan954"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "virtual"
     description: "MLX_FW_MGMT"
@@ -187,7 +192,7 @@ interfaces:
 
 
   - "!create_or_update:name": "GigabitEthernet1/0/1"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "1000base-t"
     description: "CX: {{ site_name }}-B_GI0/0/0"
@@ -200,7 +205,7 @@ interfaces:
       - "!ref:vlan503"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/2"
@@ -213,7 +218,7 @@ interfaces:
       - "!ref:vlan603"
 
   - "!create_or_update:name": "GigabitEthernet1/0/15"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "1000base-t"
     description: "{{ site_name }}-WRX-B-to-LAN"
@@ -221,7 +226,7 @@ interfaces:
     mode: "tagged"
 
   - "!create_or_update:name": "GigabitEthernet1/0/12"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "1000base-t"
     description: "CX: {{ site_name }}-FW-Guest-Services_WAN1"
@@ -232,7 +237,7 @@ interfaces:
         - "!ref:vlan612"
 
   - "!create_or_update:name": "GigabitEthernet1/0/11"
-    device: "!ref:device_wrx_a"
+    device: "!ref:device_wrx_b"
     status__name: "Planned"
     type: "1000base-t"
     description: "{{ site_name }}-FW-MGMT"
