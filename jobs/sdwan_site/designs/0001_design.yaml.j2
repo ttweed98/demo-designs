@@ -119,6 +119,8 @@ interface_redundancy_group_associations:
   - interface_redundancy_group: "!ref:kgs-irg"
     interface: "!ref:loopback1"
     priority: 110
+    site__name: "{{ site__name }}"
+    device__name: "{{ site_name }}-wrx-a"
 
   
 
