@@ -9,10 +9,10 @@ class CoreSiteDesign(DesignJob):
     """Create a core backbone site."""
 
     tenant_name = StringVar(label="Tenant")
-    site_name = StringVar(label="Site Name", regex=r"\w{3}\d+")
-    site_prefix = IPNetworkVar(label="Site Prefix", min_prefix_length=16, max_prefix_length=22)
-    management_prefix = IPNetworkVar(label="Management Prefix", min_prefix_length=24, max_prefix_length=32)
-    molex_silverpeak_prefix = IPNetworkVar(label="Molex Silverpeak Prefix", min_prefix_length=24, max_prefix_length=32)
+    site_name = StringVar(label="Site Name")
+    site_prefix = IPNetworkVar(label="Site Prefix", min_prefix_length=27, max_prefix_length=32)
+    management_prefix = IPNetworkVar(label="Management Prefix", min_prefix_length=28, max_prefix_length=32)
+    molex_silverpeak_prefix = IPNetworkVar(label="Molex Silverpeak Prefix", min_prefix_length=28, max_prefix_length=32)
 
     class Meta:
         """Metadata needed to implement the backbone site design."""
