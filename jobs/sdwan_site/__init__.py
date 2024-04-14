@@ -25,7 +25,7 @@ class CoreSiteDesign(DesignJob):
 
     def get_design_file(self):
         """Return the design file based on the instance's design_file variable."""
-        return self.design_file.value  # Use the value of the design_file StringVar
+        return self.design_file  # Use the value of the design_file StringVar
 
     def run(self, **kwargs):  # pylint: disable=arguments-differ
         """Render the design and implement it within a build Environment object."""
