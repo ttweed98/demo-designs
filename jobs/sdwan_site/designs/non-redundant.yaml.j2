@@ -61,17 +61,7 @@ vrfs:
   - "!create_or_update:name": "kgs-management"
     description: "kgs-management"
     tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_management"
-
-  - "!create_or_update:name": "kgs-wan"
-    description: "kgs-wan"
-    tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_wan"
-
-  - "!create_or_update:name": "kgs-lan"
-    description: "kgs-lan"
-    tenant__name: "{{ tenant_name }}"
-    "!ref": "vrf_kgs_lan"
+    "!ref": "kgs_management"
 
   - "!create_or_update:name": "guest"
     description: "guest"
@@ -238,25 +228,6 @@ interfaces:
     tagged_vlans:
         - "!ref:vlan611"
         - "!ref:vlan612"
-
-interface_redundancy_groups:
-  - "!create_or_update:name": "vlan954"
-    status__name: "Active"
-    description: "test"
-    protocol: "vrrp"
-    protocol_group_id: 14
-    virtual_ip: "!ref:loopback1-address"
-    "!ref": "kgs-irg"
-
-interface_redundancy_group_associations:
-  - "!create_or_update:interface": "!ref:interface_loopback1"
-    interface_redundancy_group: "!ref:kgs-irg"
-    priority: 110
-
-  - "!create_or_update:interface": "!ref:interface_loopback2"
-    interface_redundancy_group: "!ref:kgs-irg"
-    priority: 100
-
 
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
   - "!create_or_update:prefix": "{{ prefix }}"
