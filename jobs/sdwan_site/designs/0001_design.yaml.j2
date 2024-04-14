@@ -1,13 +1,12 @@
 device_types:
   - "!create_or_update:model": "8200"
-    slug: "8200"
+    slug: "!ref": "8200"
     manufacturer__slug: "cisco"
     u_height: 1
-    "!tag:reference": "device_type_8200"
 
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
-    device__type: "!ref:device_type_8200"
+    device_type__slug: "!ref:8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
