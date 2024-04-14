@@ -20,6 +20,7 @@ devices:
           status__name: "Reserved"
           description: "loopback1"
           vrf__name: "kgs-management"
+          "!ref": "loopback1-address"
           
 
       - "!create_or_update:name": "loopback2"
@@ -111,6 +112,7 @@ interface_redundancy_groups:
     description: "test"
     protocol: "vrrp"
     protocol_group_id: 14
+    virtual_ip: "!ref:loopback1-address"
     "!ref": "kgs-irg"
 
 interface_redundancy_group_associations:
