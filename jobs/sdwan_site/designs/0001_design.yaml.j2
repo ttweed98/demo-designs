@@ -35,26 +35,12 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_loopback1"
-    ip_addresses:
-      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
-        status__name: "Reserved"
-        description: "loopback1"
-        vrf__name: "kgs-management"
-        interface: "!ref:interface_loopback1"
-        "!ref": "ip_address_loopback1"
 
   - "!create_or_update:name": "loopback2"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_loopback2"
-    ip_addresses:
-      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
-        status__name: "Reserved"
-        description: "loopback2"
-        vrf__name: "kgs-management"
-        interface: "!ref:interface_loopback2"
-        "!ref": "ip_address_loopback2"
 
 
   - "!create_or_update:name": "vlan1651"
@@ -62,13 +48,6 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_vlan1651"
-    ip_addresses:
-      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
-        status__name: "Reserved"
-        description: "vlan1651"
-        vrf__name: "kgs-management"
-        interface: "!ref:interface_vlan1651"
-        "!ref": "ip_address_vlan1651"
 
 
   - "!create_or_update:name": "vlan1711"
@@ -76,13 +55,6 @@ interfaces:
     status__name: "Planned"
     type: "virtual"
     "!ref": "interface_vlan1711"
-    ip_addresses:
-      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
-        status__name: "Reserved"
-        description: "vlan1711"
-        vrf__name: "kgs-management"
-        interface: "!ref:interface_vlan1711"
-        "!ref": "ip_address_vlan1711"
 
   - "!create_or_update:name": "GigabitEthernet1/0/1"
     device: "!ref:device_wrx_a"
@@ -97,26 +69,6 @@ interfaces:
     "!ref": "interface_GigabitEthernet1/0/2"
 
 
-
-interface_redundancy_groups:
-  - "!create_or_update:name": "wrx-a"
-    status__name: "Active"
-    description: "test"
-    protocol: "vrrp"
-    protocol_group_id: 14
-    virtual_ip: "!ref:ip_address_loopback1"
-    "!ref": "irg_wrx_a"
-
-interface_redundancy_group_associations:
-  - interface_redundancy_group: "!ref:irg_wrx_a"
-    interface: "!ref:interface_loopback1"
-    priority: 110
-
-  - interface_redundancy_group: "!ref:irg_wrx_a"
-    interface: "!ref:interface_loopback2"
-    priority: 100
-
-  
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
   - vid: {{ vid }}
