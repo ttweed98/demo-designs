@@ -19,6 +19,7 @@ devices:
           status__name: "Reserved"
           description: "loopback1"
           vrf__name: "kgs-management"
+          "!ref": "loopback1"
 
       - "!create_or_update:name": "loopback2"
         status__name: "Planned"
@@ -93,6 +94,7 @@ vrfs:
   - "!create_or_update:name": "kgs-management"
     description: "kgs-management"
     tenant__name: "{{ tenant_name }}"
+    "!ref": "kgs-management"
 
   - "!create_or_update:name": "kgs-wan"
     description: "kgs-wan"
@@ -108,11 +110,13 @@ interface_redundancy_groups:
     description: "test"
     protocol: "vrrp"
     protocol_group_id: 14
-    interfaces:
-      - interface__name: "loopback1"
-        priority: 100
-        interface_redundancy_group: "wrx-a"
 
+interface_redundancy_group_associations:
+  - interface_redundancy_group: "!ref": "kgs-management"
+    interface: "!ref": "loopback1"
+    priority: 110
+
+  
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
   - vid: {{ vid }}
