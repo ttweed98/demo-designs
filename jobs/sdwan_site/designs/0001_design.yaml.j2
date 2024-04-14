@@ -58,7 +58,7 @@ ip_addresses:
     interface: "!ref:interface_loopback1"
     "!tag:reference": "ip_address_loopback1"
 
-  - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
+  - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
     status__name: "Reserved"
     description: "loopback2"
     vrf__name: "kgs-management"
