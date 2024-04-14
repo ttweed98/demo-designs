@@ -18,6 +18,31 @@ devices:
       "site_prefix": "{{ site_prefix }}"
     "!ref": "device_wrx_a"
 
+{% macro vlan(vid, name, status_name, site_name, description) -%}
+  - vid: {{ vid }}
+    name: "{{ name }}"
+    status__name: "{{ status_name }}"
+    site__name: "{{ site_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+{%- endmacro %}
+
+vlans:
+  {{ vlan(999, "sinkhole", "Active", site_name, "sinkhole") }}
+  {{ vlan(500, "B-Biz-Internet", "Active", site_name, "B-Biz-Internet") }}
+  {{ vlan(501, "A-Public-Internet", "Active", site_name, "A-Public-Internet") }}
+  {{ vlan(502, "B-LTE", "Active", site_name, "B-LTE") }}
+  {{ vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet") }}
+  {{ vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
+  {{ vlan(1651, "vlan1651", "Active", site_name, "sitevlans") }}
+  {{ vlan(1711, "vlan1711", "Active", site_name, "sitevlans") }}
+  {{ vlan(1700, "WRX-A-to-WRX-B", "Active", site_name, "WRX-A-to-WRX-B") }}
+  {{ vlan(1702, "WRX-B-to-LAN", "Active", site_name, "WRX-B-to-LAN") }}
+  {{ vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB") }}
+  {{ vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B") }}
+  {{ vlan(604, "Guest-WRX-B--EdgeA", "Active", site_name, "Guest-WRX-B--EdgeA") }}
+  {{ vlan(612, "name DIA-Provisioning", "Active", site_name, "name DIA-Provisioning") }}
+
 vrfs:
   - "!create_or_update:name": "kgs-management"
     description: "kgs-management"
@@ -90,6 +115,19 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/1"
     mode: "tagged"
+    tagged_vlans:
+      - vid: 500
+        name: "B-Biz-Internet"
+        status__name: "Active"
+      - vid: 501
+        name: "A-Public-Internet"
+        status__name: "Active"
+      - vid: 502
+        name: "B-LTE"
+        status__name: "Active"
+      - vid: 503
+        name: "A-MPLS-Internet"
+        status__name: "Active"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
@@ -97,6 +135,19 @@ interfaces:
     type: "1000base-t"
     "!ref": "interface_GigabitEthernet1/0/2"
     mode: "tagged"
+    tagged_vlans:
+      - vid: 601
+        name: "Guest-WRX-B--EdgeB"
+        status__name: "Active"
+      - vid: 603
+        name: "Guest-WRX-A--Edge-B"
+        status__name: "Active"
+      - vid: 1650
+        name: "WRX-to-Edge"
+        status__name: "Active"
+      - vid: 1651
+        name: "vlan1651"
+        status__name: "Active"
 
 interface_redundancy_groups:
   - "!create_or_update:name": "wrx-a"
@@ -117,16 +168,6 @@ interface_redundancy_group_associations:
     priority: 100
 
   
-{% macro vlan(vid, name, status_name, site_name, description) -%}
-  - vid: {{ vid }}
-    name: "{{ name }}"
-    status__name: "{{ status_name }}"
-    site__name: "{{ site_name }}"
-    description: "{{ description }}"
-    tenant__name: "{{ tenant_name }}"
-{%- endmacro %}
-
-
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
   - prefix: "{{ prefix }}"
     site__name: "{{ site_name }}"
@@ -135,22 +176,6 @@ interface_redundancy_group_associations:
     tenant__name: "{{ tenant_name }}"
 {%- endmacro %}
 
-
-vlans:
-  {{ vlan(999, "sinkhole", "Active", site_name, "sinkhole") }}
-  {{ vlan(500, "B-Biz-Internet", "Active", site_name, "B-Biz-Internet") }}
-  {{ vlan(501, "A-Public-Internet", "Active", site_name, "A-Public-Internet") }}
-  {{ vlan(502, "B-LTE", "Active", site_name, "B-LTE") }}
-  {{ vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet") }}
-  {{ vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
-  {{ vlan(1651, "vlan1651", "Active", site_name, "sitevlans") }}
-  {{ vlan(1711, "vlan1711", "Active", site_name, "sitevlans") }}
-  {{ vlan(1700, "WRX-A-to-WRX-B", "Active", site_name, "WRX-A-to-WRX-B") }}
-  {{ vlan(1702, "WRX-B-to-LAN", "Active", site_name, "WRX-B-to-LAN") }}
-  {{ vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB") }}
-  {{ vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B") }}
-  {{ vlan(604, "Guest-WRX-B--EdgeA", "Active", site_name, "Guest-WRX-B--EdgeA") }}
-  {{ vlan(612, "name DIA-Provisioning", "Active", site_name, "name DIA-Provisioning") }}
 
 prefixes:
   {{ prefix(site_prefix, site_name, "Reserved", "WAN", tenant_name) }}
