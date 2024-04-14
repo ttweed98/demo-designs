@@ -1,0 +1,273 @@
+device_types:
+  - "!create_or_update:model": "8200"
+    slug: "8200"
+    manufacturer__slug: "cisco"
+    u_height: 1
+    "!ref": "device_type_8200"
+
+roles:
+  - "!create_or_update:name": "{{ site_name }}_ipam"
+    slug: "{{ site_name }}_ipam"
+    weight: 1000
+
+  - "!create_or_update:name": "wanswitch_vlans"
+    slug: "wanswitch_vlans"
+    weight: 1000
+
+devices:
+  - "!create_or_update:name": "{{ site_name }}-wrx-b"
+    device_type: "!ref:device_type_8200"
+    device_role__slug: "wanswitch"
+    site__slug: "{{ site_name }}"
+    tenant__name: "{{ tenant_name }}"
+    platform__name: "cisco_iosxe"
+    status__name: "Active"
+    local_context_data:
+      "site_name": "{{ site_name }}"
+      "tenant_name": "{{ tenant_name }}"
+      "management_prefix": "{{ management_prefix }}"
+      "site_prefix": "{{ site_prefix }}"
+    "!ref": "device_wrx_b"
+
+{% macro vlan(vid, name, status_name, site_name, description) -%}
+  - "!create_or_update:vid": "{{ vid }}"
+    name: "{{ name }}"
+    status__name: "{{ status_name }}"
+    site__name: "{{ site_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "wanswitch_vlans"
+    "!ref": "vlan{{vid}}"
+{%- endmacro %}
+
+vlans:
+  {{ vlan(999, "sinkhole", "Active", site_name, "sinkhole") }}
+  {{ vlan(500, "B-Biz-Internet", "Active", site_name, "B-Biz-Internet") }}
+  {{ vlan(501, "A-Public-Internet", "Active", site_name, "A-Public-Internet") }}
+  {{ vlan(502, "B-LTE", "Active", site_name, "B-LTE") }}
+  {{ vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet") }}
+  {{ vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
+  {{ vlan(1651, "vlan1651", "Active", site_name, "sitevlans") }}
+  {{ vlan(1700, "WRX-A-to-WRX-B", "Active", site_name, "WRX-A-to-WRX-B") }}
+  {{ vlan(1702, "WRX-B-to-LAN", "Active", site_name, "WRX-B-to-LAN") }}
+  {{ vlan(1711, "vlan1711", "Active", site_name, "sitevlans") }}
+  {{ vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB") }}
+  {{ vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B") }}
+  {{ vlan(604, "Guest-WRX-B--EdgeA", "Active", site_name, "Guest-WRX-B--EdgeA") }}
+  {{ vlan(611, "Guest-Services", "Active", site_name, "Guest-Services") }}
+  {{ vlan(612, "name DIA-Provisioning", "Active", site_name, "name DIA-Provisioning") }}
+
+vrfs:
+  - "!create_or_update:name": "kgs-management"
+    description: "kgs-management"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_management"
+
+  - "!create_or_update:name": "kgs-wan"
+    description: "kgs-wan"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_wan"
+
+  - "!create_or_update:name": "kgs-lan"
+    description: "kgs-lan"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_kgs_lan"
+
+  - "!create_or_update:name": "guest"
+    description: "guest"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "vrf_guest"
+
+interfaces:
+  - "!create_or_update:name": "loopback1"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "{{ site_name }}-WRX-B_Data_Loopback"
+    "!ref": "interface_loopback1"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'loopback1') }}"
+        status__name: "Reserved"
+        description: "{{ site_name }}-WRX-B_Data_Loopback1-address"
+        vrf__name: "kgs-management"
+        tenant__name: "{{ tenant_name }}"
+        "!ref": "loopback1-address"
+
+
+  - "!create_or_update:name": "loopback2"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "{{ site_name }}-WRX-B_Customer_Loopback"
+    "!ref": "interface_loopback2"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'loopback2') }}"
+        status__name: "Reserved"
+        description: "{{ site_name }}-WRX-B_Customer_Loopback2-address"
+        tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan1650"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "Customer Mgmnt-B"
+    "!ref": "interface_vlan1650"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1650') }}"
+        status__name: "Reserved"
+        description: "{{ site_name }}-WRX-B_Customer_Mgmt-B-vlan1650-address"
+        tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan1651"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "KGS Mgmnt-B"
+    "!ref": "interface_vlan1651"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1651') }}"
+        status__name: "Reserved"
+        description: "vlan1651"
+        description: "{{ site_name }}-WRX-B_KGS_Mgmt-B-vlan1651-address"
+        tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan1700"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "WRX-A-to-WRX-B"
+    "!ref": "interface_vlan1700"
+    ip_addresses:
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1700') }}"
+        status__name: "Reserved"
+        description: "{{ site_name }}-WRX-A-to-WRX-B-vlan1700-address"
+        tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan1711"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "WRX-A-to-WRX-B"
+    "!ref": "interface_vlan1711"
+    ip_addresses:
+    - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1711') }}"
+      status__name: "Reserved"
+      description: "{{ site_name }}-WRX-A-to-WRX-B-vlan1711-address"
+      vrf__name: "kgs-management"
+      tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan601"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "Guest-WRX-B--EdgeB"
+    "!ref": "interface_vlan601"
+    ip_addresses:
+      - "!create_or_update:address": "169.168.140.241/31"
+        status__name: "Reserved"
+        description: "{{ site_name }}-Guest-WRX-B--EdgeB-vlan601-address"
+        tenant__name: "{{ tenant_name }}"
+
+  - "!create_or_update:name": "vlan612"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "DIA-Provisioning"
+    "!ref": "interface_vlan612"
+    ip_addresses:
+      - "!create_or_update:address": "172.29.191.1/24"
+        status__name: "Reserved"
+        description: "{{ site_name }}-DIA-Provisioning-vlan612-address"
+        tenant__name: "{{ tenant_name }}"
+        vrf__name: "guest"
+        
+  - "!create_or_update:name": "vlan611"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "virtual"
+    description: "Guest-Services"
+    "!ref": "interface_vlan611"
+    ip_addresses:
+      - "!create_or_update:address": "172.29.192.1/20"
+        status__name: "Reserved"
+        description: "{{ site_name }}-Guest-Services-vlan611-address"
+        tenant__name: "{{ tenant_name }}"
+        vrf__name: "guest"
+
+  - "!create_or_update:name": "GigabitEthernet1/0/1"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "1000base-t"
+    description: "CX: {{ site_name }}-B_GI0/0/0"
+    "!ref": "interface_GigabitEthernet1/0/1"
+    mode: "tagged"
+    tagged_vlans:
+      - "!ref:vlan500"
+      - "!ref:vlan501"
+      - "!ref:vlan502"
+      - "!ref:vlan503"
+
+  - "!create_or_update:name": "GigabitEthernet1/0/2"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "1000base-t"
+    "!ref": "interface_GigabitEthernet1/0/2"
+    description: "CX: {{ site_name }}-B_GI0/0/1"
+    mode: "tagged"
+    tagged_vlans:
+      - "!ref:vlan1650"
+      - "!ref:vlan1651"
+      - "!ref:vlan601"
+      - "!ref:vlan603"
+
+  - "!create_or_update:name": "GigabitEthernet1/0/5"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "1000base-t"
+    description: "{{ site_name }}-WRX-B-to-LAN"
+    "!ref": "interface_GigabitEthernet1/0/5"
+    mode: "tagged"
+
+  - "!create_or_update:name": "GigabitEthernet1/0/12"
+    device: "!ref:device_wrx_b"
+    status__name: "Planned"
+    type: "1000base-t"
+    description: "CX: {{ site_name }}-FW-Guest-Services_WAN1"
+    "!ref": "interface_GigabitEthernet1/0/12"
+    mode: "tagged"
+    tagged_vlans:
+        - "!ref:vlan611"
+        - "!ref:vlan612"
+
+interface_redundancy_groups:
+  - "!create_or_update:name": "vlan954"
+    status__name: "Active"
+    description: "test"
+    protocol: "vrrp"
+    protocol_group_id: 14
+    virtual_ip: "!ref:loopback1-address"
+    "!ref": "kgs-irg"
+
+interface_redundancy_group_associations:
+  - "!create_or_update:interface": "!ref:interface_loopback1"
+    interface_redundancy_group: "!ref:kgs-irg"
+    priority: 110
+
+  - "!create_or_update:interface": "!ref:interface_loopback2"
+    interface_redundancy_group: "!ref:kgs-irg"
+    priority: 100
+
+
+{% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
+  - "!create_or_update:prefix": "{{ prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_ipam"
+{%- endmacro %}
+
+
+prefixes:
+  {{ prefix(site_prefix, site_name, "Reserved", tenant_name + " Site Prefixes", tenant_name) }}
+  {{ prefix(management_prefix, site_name, "Reserved", "Management", "KGS") }}
