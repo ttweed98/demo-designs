@@ -7,7 +7,7 @@ device_types:
 
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
-    device_type: "!ref:device_type_8200"
+    device__type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
