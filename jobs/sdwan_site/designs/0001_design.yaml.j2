@@ -103,11 +103,11 @@ vrfs:
     tenant__name: "{{ tenant_name }}"
 
 interface_redundancy_groups:
-  - "!create_or_update:name": "wrx-a"
-    description: "wrx-a"
+  - "!create_or_update:name": "test-wrx-a"
+    description: "test-wrx-a"
     status__name: "Active"
     virtual_ip: "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
-    redundancy_protocol: "vrrp"
+    protocol: "vrrp"
     protocol_group_id: 14
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
