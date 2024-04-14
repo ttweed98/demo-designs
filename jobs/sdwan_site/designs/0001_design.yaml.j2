@@ -160,6 +160,19 @@ interfaces:
         description: "{{ site_name }}-Guest-WRX-B--EdgeB-vlan601-address"
         tenant__name: "{{ tenant_name }}"
 
+  - "!create_or_update:name": "vlan612"
+    device: "!ref:device_wrx_a"
+    status__name: "Planned"
+    type: "virtual"
+    description: "DIA-Provisioning"
+    "!ref": "interface_vlan612"
+    ip_addresses:
+      - "!create_or_update:address": "172.29.191.1/24"
+        status__name: "Reserved"
+        description: "{{ site_name }}-DIA-Provisioning-vlan612-address"
+        tenant__name: "{{ tenant_name }}"
+        vrf__name: "guest"
+
   - "!create_or_update:name": "vlan954"
     device: "!ref:device_wrx_a"
     status__name: "Planned"
@@ -215,7 +228,7 @@ interfaces:
     "!ref": "interface_GigabitEthernet1/0/12"
     mode: "tagged"
     tagged_vlans:
-        - "!ref:vlan611
+        - "!ref:vlan611"
         - "!ref:vlan612"
 
   - "!create_or_update:name": "GigabitEthernet1/0/11"
