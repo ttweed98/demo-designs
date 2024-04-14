@@ -5,11 +5,11 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
-roles:
-  - "!create_or_update:name": "wanswitch-vlans"
-    slug: "wanswitch-vlans
+device_roles:
+  - "!create_or_update:name": "wanswitch_vlans"
+    slug: "wanswitch_vlans
     color: "00ff00"
-    "!ref": "wanswitch-vlans"
+    "!ref": "wanswitch_vlans"
 
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
@@ -33,6 +33,7 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
+    role: "!ref:wanswitch_vlans"
     "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
