@@ -18,7 +18,7 @@ devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-b"
     device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
-    site__slug: "{{ site_name }}"
+    site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "cisco_iosxe"
     status__name: "Active"
