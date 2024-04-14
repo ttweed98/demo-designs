@@ -237,9 +237,6 @@ interfaces:
     type: "1000base-t"
     description: "{{ site_name }}-FW-MGMT"
     "!ref": "interface_GigabitEthernet1/0/11"
-    mode: "access"
-    tagged_vlans:
-        - "!ref:vlan954"
 
 interface_redundancy_groups:
   - "!create_or_update:name": "vlan954"
