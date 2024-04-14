@@ -14,12 +14,13 @@ devices:
       - "!create_or_update:name": "loopback1"
         status__name: "Planned"
         type: "virtual"
+        "!ref": "loopback1"
         ip_addresses:
         - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
           status__name: "Reserved"
           description: "loopback1"
           vrf__name: "kgs-management"
-          "!ref": "loopback1"
+          
 
       - "!create_or_update:name": "loopback2"
         status__name: "Planned"
@@ -114,7 +115,7 @@ interface_redundancy_groups:
 
 interface_redundancy_group_associations:
   - interface_redundancy_group: "!ref:kgs-irg"
-    interface: "loopback1"
+    interface: "!ref:loopback1"
     priority: 110
 
   
