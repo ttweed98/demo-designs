@@ -118,6 +118,9 @@ interfaces:
     mode: "tagged"
     tagged_vlans:
       - "!ref:vlan500"
+      - "!ref:vlan501"
+      - "!ref:vlan502"
+      - "!ref:vlan503"
 
   - "!create_or_update:name": "GigabitEthernet1/0/2"
     device: "!ref:device_wrx_a"
