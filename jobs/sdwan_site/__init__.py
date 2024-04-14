@@ -27,7 +27,7 @@ class CoreSiteDesign(DesignJob):
         """Return the design file based on the instance's design_file variable."""
         return self.design_file  # Use the value of the design_file StringVar
 
-    def run(self, data=None, commit=None):
+    def run(self):
         """Override the run method to set the design file before running the job."""
         # Set the design file based on user input
         self.Meta.design_file = self.get_design_file()
