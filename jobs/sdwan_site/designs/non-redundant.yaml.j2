@@ -15,10 +15,10 @@ roles:
     weight: 1000
 
 devices:
-  - "!create_or_update:name": "{{ site_name }}-wrx-b"
+  - "!create_or_update:name": "{{ site_name }}-WRX-B"
     device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
-    site__slug: "{{ site_name }}"
+    site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "cisco_iosxe"
     status__name: "Active"
@@ -83,7 +83,7 @@ interfaces:
     description: "{{ site_name }}-WRX-B_Data_Loopback"
     "!ref": "interface_loopback1"
     ip_addresses:
-      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'loopback1') }}"
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-WRX-B', 'loopback1') }}"
         status__name: "Reserved"
         description: "{{ site_name }}-WRX-B_Data_Loopback1-address"
         vrf__name: "kgs-management"
@@ -98,7 +98,7 @@ interfaces:
     description: "{{ site_name }}-WRX-B_Customer_Loopback"
     "!ref": "interface_loopback2"
     ip_addresses:
-      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'loopback2') }}"
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-WRX-B', 'loopback2') }}"
         status__name: "Reserved"
         description: "{{ site_name }}-WRX-B_Customer_Loopback2-address"
         tenant__name: "{{ tenant_name }}"
@@ -110,7 +110,7 @@ interfaces:
     description: "Customer Mgmnt-B"
     "!ref": "interface_vlan1650"
     ip_addresses:
-      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1650') }}"
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-WRX-B', 'vlan1650') }}"
         status__name: "Reserved"
         description: "{{ site_name }}-WRX-B_Customer_Mgmt-B-vlan1650-address"
         tenant__name: "{{ tenant_name }}"
@@ -122,7 +122,7 @@ interfaces:
     description: "KGS Mgmnt-B"
     "!ref": "interface_vlan1651"
     ip_addresses:
-      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1651') }}"
+      - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-WRX-B', 'vlan1651') }}"
         status__name: "Reserved"
         description: "vlan1651"
         description: "{{ site_name }}-WRX-B_KGS_Mgmt-B-vlan1651-address"
@@ -135,7 +135,7 @@ interfaces:
     description: "WRX-A-to-WRX-B"
     "!ref": "interface_vlan1700"
     ip_addresses:
-      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'vlan1700') }}"
+      - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-WRX-B', 'vlan1700') }}"
         status__name: "Reserved"
         description: "{{ site_name }}-WRX-A-to-WRX-B-vlan1700-address"
         tenant__name: "{{ tenant_name }}"
@@ -147,7 +147,7 @@ interfaces:
     description: "WRX-A-to-WRX-B"
     "!ref": "interface_vlan1711"
     ip_addresses:
-    - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1711') }}"
+    - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-WRX-B', 'vlan1711') }}"
       status__name: "Reserved"
       description: "{{ site_name }}-WRX-A-to-WRX-B-vlan1711-address"
       vrf__name: "kgs-management"
