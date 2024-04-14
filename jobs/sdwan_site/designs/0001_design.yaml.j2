@@ -65,7 +65,7 @@ ip_addresses:
     interface: "!ref:interface_loopback2"
     "!tag:reference": "ip_address_loopback2"
 
-  - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
+  - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
     status__name: "Reserved"
     description: "vlan1651"
     vrf__name: "kgs-management"
