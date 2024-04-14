@@ -75,7 +75,7 @@ ip_addresses:
     tenant__name: "{{tenant_name}}"
     "!ref": "interface_loopback1_address"
 
-interface_assignments:
+interface_assignment:
   - ip_address: "!ref:interface_loopback1_address"
     interface: "!ref:interface_loopback1"
     is_primary: true
