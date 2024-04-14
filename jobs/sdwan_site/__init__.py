@@ -19,5 +19,5 @@ class CoreSiteDesign(DesignJob):
 
         name = "Sdwan Site Design"
         commit_default = False
-        design_file = "designs/0001_design.yaml.j2"
+        design_file = "designs/non-redundant.yaml.j2"
         context_class = SDWANSiteContext
