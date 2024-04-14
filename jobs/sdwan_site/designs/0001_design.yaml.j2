@@ -111,6 +111,7 @@ interface_redundancy_groups:
     interfaces:
       - interface__name: "loopback1"
         priority: 100
+        interface_redundancy_group: "wrx-a"
 
 
 {% macro vlan(vid, name, status_name, site_name, description) -%}
