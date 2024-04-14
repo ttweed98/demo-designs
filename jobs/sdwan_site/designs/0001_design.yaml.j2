@@ -10,6 +10,7 @@ devices:
     device_type: "!ref:device_type_8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
+    tenant__name: "{{ tenant_name }}"
     status__name: "Active"
     local_context_data:
       "site_name": "{{ site_name }}"
