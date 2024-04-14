@@ -5,26 +5,31 @@ device_types:
     u_height: 1
 
 devices:
-  - "!create_or_update:name": "{{ site_name }}-wrx-b"
+  - "!create_or_update:name": "{{ site_name }}-wrx-a"
     device_type__slug: "8200"
     device_role__slug: "wanswitch"
     site__slug: "{{ site_name }}"
     status__name: "Active"
+    local_context_data:
+      "site_name": "{{ site_name }}"
+      "tenant_name": "{{ tenant_name }}"
+      "site_prefix": "{{ site_prefix }}"
+      "management_prefix": "{{ management_prefix }}"
     interfaces:
       - "!create_or_update:name": "loopback1"
         status__name: "Planned"
         type: "virtual"
+        primary_ip4: true
         ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'loopback1') }}"
+        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'loopback1') }}"
           status__name: "Reserved"
           description: "loopback1"
-          is_primary: true
 
       - "!create_or_update:name": "loopback2"
         status__name: "Planned"
         type: "virtual"
         ip_addresses:
-        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-b', 'loopback2') }}"
+        - "!create_or_update:address": "{{ get_site_interface_ip(site_name + '-wrx-a', 'loopback2') }}"
           status__name: "Reserved"
           description: "loopback2"
 
@@ -32,7 +37,7 @@ devices:
         status__name: "Planned"
         type: "virtual"
         ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1651') }}"
+        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1651') }}"
           status__name: "Reserved"
           description: "vlan1651"
 
@@ -40,7 +45,7 @@ devices:
         status__name: "Planned"
         type: "virtual"
         ip_addresses:
-        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-b', 'vlan1711') }}"
+        - "!create_or_update:address": "{{ get_management_interface_ip(site_name + '-wrx-a', 'vlan1711') }}"
           status__name: "Reserved"
           description: "vlan1711"
 
@@ -74,7 +79,7 @@ devices:
             name: "Guest-WRX-B--EdgeB"
             status__name: "Active"
           - vid: 603
-            name: "Guest-wrx-b--Edge-B"
+            name: "Guest-WRX-A--Edge-B"
             status__name: "Active"
           - vid: 1650
             name: "WRX-to-Edge"
@@ -114,7 +119,7 @@ vlans:
   {{ vlan(502, "B-LTE", "Active", site_name, "B-LTE") }}
   {{ vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet") }}
   {{ vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB") }}
-  {{ vlan(603, "Guest-wrx-b--Edge-B", "Active", site_name, "Guest-wrx-b--Edge-B") }}
+  {{ vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B") }}
   {{ vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
   {{ vlan(1651, "vlan1651", "Active", site_name, "vlan1651") }}
   {{ vlan(1711, "vlan1711", "Active", site_name, "vlan1711") }}
