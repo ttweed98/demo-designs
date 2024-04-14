@@ -121,8 +121,8 @@ interfaces:
 
   
 {% macro vlan(vid, name, status_name, site_name, description) -%}
-  - "!create_or_update:vid": "{{ vid }}"
-    name: "{{ name }}"
+  - "!create_or_update:name": "{{ name }}"
+    vid: "{{ vid }}"
     status__name: "{{ status_name }}"
     site__name: "{{ site_name }}"
     description: "{{ description }}"
