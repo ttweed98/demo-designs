@@ -140,12 +140,12 @@ interface_redundancy_groups:
     "!ref": "kgs-irg"
 
 interface_redundancy_group_associations:
-  - interface_redundancy_group: "!ref:kgs-irg"
-    interface: "!ref:interface_loopback1"
+  - "!create_or_update:interface": "!ref:interface_loopback1"
+    interface_redundancy_group: "!ref:kgs-irg"
     priority: 110
 
-  - interface_redundancy_group: "!ref:kgs-irg"
-    interface: "!ref:interface_loopback2"
+  - "!create_or_update:interface": "!ref:interface_loopback2"
+    interface_redundancy_group: "!ref:kgs-irg"
     priority: 100
 
   
