@@ -20,5 +20,15 @@ class CoreSiteDesign(DesignJob):
 
         name = "Sdwan Site Design"
         commit_default = False
-        #design_file = "designs/non-redundant.yaml.j2"
+        design_file = None  # Remove the hardcoded design file
         context_class = SDWANSiteContext
+
+    def get_design_file(self):
+        """Return the design file based on the instance's design_file variable."""
+        return self.design_file.value  # Use the value of the design_file StringVar
+
+    def run(self, data=None, commit=None):
+        """Override the run method to set the design file before running the job."""
+        # Set the design file based on user input
+        self.Meta.design_file = self.get_design_file()
+        super().run(data, commit)
