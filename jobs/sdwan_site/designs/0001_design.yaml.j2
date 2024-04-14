@@ -5,10 +5,6 @@ device_types:
     u_height: 1
     "!ref": "device_type_8200"
 
-roles:
-  - "!create_or_update:name": "wanswitch-vlans"
-    slug: "wanswitch-vlans
-
 devices:
   - "!create_or_update:name": "{{ site_name }}-wrx-a"
     device_type: "!ref:device_type_8200"
@@ -31,7 +27,6 @@ devices:
     site__name: "{{ site_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
-    role__slug: "wanswitch-vlans"
     "!ref": "vlan{{vid}}"
 {%- endmacro %}
 
@@ -145,12 +140,12 @@ interface_redundancy_groups:
     "!ref": "kgs-irg"
 
 interface_redundancy_group_associations:
-  - "!create_or_update:interface": "!ref:interface_loopback1"
-    interface_redundancy_group: "!ref:kgs-irg"
+  - interface_redundancy_group: "!ref:kgs-irg"
+    interface: "!ref:interface_loopback1"
     priority: 110
 
-  - "!create_or_update:interface": "!ref:interface_loopback2"
-    interface_redundancy_group: "!ref:kgs-irg"
+  - interface_redundancy_group: "!ref:kgs-irg"
+    interface: "!ref:interface_loopback2"
     priority: 100
 
   
