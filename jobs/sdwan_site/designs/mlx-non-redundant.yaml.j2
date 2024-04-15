@@ -13,6 +13,7 @@
 {% set device_platform = "cisco_iosxe" %}
 {% set management_vrf = 'kgs_management' %}
 {% set guest_vrf = 'guest' %}
+{% set redundancy_group_name = site_name + 'vrrp' %}
 
 roles:
   {{ create.ipam_role(vlan_role) }}
@@ -60,3 +61,6 @@ interfaces:
   {{ create.l3_interface('vlan1651', get_management_interface_ip(device_name_b, 'vlan1651'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
+
+interface_redundancy_groups:
+  {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', get_management_interface_ip(device_name_b, 'vlan1711'))}}

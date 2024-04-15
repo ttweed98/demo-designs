@@ -87,14 +87,14 @@
     role__name: "{{ role_name }}"
 {%- endmacro %}
 
-{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip, ref) -%}
+{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip) -%}
   - "!create_or_update:name": "{{ name }}"
     status__name: "{{ status_name }}"
     description: "{{ description }}"
     protocol: "{{ protocol }}"
     protocol_group_id: "{{ protocol_group_id }}"
     virtual_ip: "!ref:{{ virtual_ip }}"
-    "!ref": "{{ ref }}"
+    "!ref": "{{ name }}"
 {%- endmacro %}
 
 {% macro interface_redundancy_group_association(interface, interface_redundancy_group, priority) -%}
