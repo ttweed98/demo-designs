@@ -45,4 +45,7 @@ devices:
   {{ create.device(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
 
 interfaces:
-  {{ create.l2_interface('GigabitEthernet0/0/0', device_name_a|lower, 'Planned', 'virtual', 'test interface', 'tagged', ['vlan500']) }}
+  {{ create.l2_interface('GigabitEthernet1/0/1', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/0', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
+  {{ create.l2_interface('GigabitEthernet1/0/2', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/1', 'tagged', ['vlan1650', 'vlan1651', 'vlan601', 'vlan603']) }}
+  {{ create.l2_interface('GigabitEthernet1/0/5', device_name_a|lower, 'Planned', 'virtual', '{{ site_name }}-WRX-B-to-LAN', 'tagged', []) }}
+  {{ create.l2_interface('GigabitEthernet1/0/12', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-FW-Guest-Services_WAN1', 'tagged', ['vlan611', 'vlan612']) }}
