@@ -52,3 +52,11 @@ devices:
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf) }}
   {{ create.device_interface_layer2(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/1', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
   {{ create.device_with_interface_ip(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_a, 'loopback1'), management_vrf) }}
+
+
+interface_redundancy_groups:
+  {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', device_name_b|lower, 'loopback1') }}
+
+interface_redundancy_group_associations:
+  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback1', redundancy_group_name, 110)}}
+  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback2', redundancy_group_name, 120)}}
