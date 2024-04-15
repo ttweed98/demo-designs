@@ -52,7 +52,8 @@
     site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "{{ platform_name }}"
-    status__name: "{{ status_name }}"
+    status__name: "{{ status_name | default('Staged') }}"
+    type: "{{ type | default('virtual')}}"
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
@@ -73,7 +74,8 @@
     site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "{{ platform_name }}"
-    status__name: "{{ status_name }}"
+    status__name: "{{ status_name | default('Staged') }}"
+    type: "{{ type | default('virtual')}}"
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
