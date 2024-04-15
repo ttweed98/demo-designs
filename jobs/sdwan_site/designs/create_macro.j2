@@ -99,7 +99,7 @@
 {%- endmacro %}
 
 {% macro interface_redundancy_group_association(device, interface, interface_redundancy_group, priority) -%}
-  - "!create_or_update:interface": "!ref:{{ device }}:{{ interface }}
-    interface_redundancy_group: "!ref:{{ interface_redundancy_group }}"
+  - "!create_or_update:interface": "!ref:{{ device }}:{{ interface }}"
+    interface_redundancy_group: "!ref:'{{ interface_redundancy_group }}'"
     priority: "{{ priority }}"
 {%- endmacro %}
