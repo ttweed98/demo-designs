@@ -45,13 +45,13 @@
     "!ref": "{{ name }}"
 {%- endmacro %}
 
-{% macro l3_interface(name, device_ref, status_name, type, description, ref, address, tenant_name, vrf_name=None) -%}
+{% macro l3_interface(name, address, device_ref, status_name, type, description, tenant_name, vrf_name=None) -%}
   - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
-    "!ref": "{{ ref }}"
+    "!ref": "{{ device_ref }}:{{ name }}"
     ip_addresses:
       - "!create_or_update:address": "{{ address }}"
         status__name: "Reserved"
