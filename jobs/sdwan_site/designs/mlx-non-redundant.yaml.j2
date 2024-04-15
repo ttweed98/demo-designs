@@ -2,11 +2,15 @@
 
 {% set device_type = 'cisco8200' %}
 {% set device_role = 'wanswitch' %}
-{% set ipam_role   = 'ipam_role' %}
-{% set vlan_role   = 'vlan_role' %}
-{% set status_name = 'Active' %}
+{% set ipam_role   = site_name %}
+{% set vlan_role   = site_name %}
+{% set prefix_status = 'Active' %}
+{% set device_status = 'Stagged' %}
 {% set protocol = 'vrrp' %}
 {% set device_manufacturer = 'cisco' %}
+{% set device_name_b = site_name + '-WRX-B' %}
+{% set device_name_a = site_name + '-WRX-A' %}
+{% set device_platform == "cisco_iosxe" %}
 
 roles:
   {{ create.ipam_role(vlan_role) }}
