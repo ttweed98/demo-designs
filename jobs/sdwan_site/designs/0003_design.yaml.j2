@@ -81,16 +81,6 @@
     {% if tagged_vlans %}
     tagged_vlans: "{{ tagged_vlans }}"
     {% endif %}
-    {% for ip_address in ip_addresses %}
-    ip_addresses:
-      - "!create_or_update:address": "{{ ip_address.address }}"
-        status__name: "{{ ip_address.status }}"
-        description: "{{ ip_address.description }}"
-        {% if ip_address.vrf %}
-        vrf__name: "{{ ip_address.vrf }}"
-        {% endif %}
-        tenant__name: "{{ ip_address.tenant }}"
-    {% endfor %}
 {%- endmacro %}
 
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
