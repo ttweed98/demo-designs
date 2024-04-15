@@ -83,6 +83,9 @@
     role__name: "{{ site_name }}_ipam"
 {%- endmacro %}
 
+prefixes:
+  {{ prefix(site_prefix, site_name, "Reserved", tenant_name + " Site Prefixes", tenant_name) }}
+
 device_types:
     {{ device_type('cisco8200', 'cisco') }}
 
