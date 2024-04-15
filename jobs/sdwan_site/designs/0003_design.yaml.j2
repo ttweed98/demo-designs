@@ -59,13 +59,14 @@
         tenant__name: "{{ tenant_name }}"
 {%- endmacro %}
 
-{% macro l2_interface(name, device_ref, status_name, type, description, mode, ref) -%}
+{% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans, ref) -%}
   - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
     mode: "{{ mode }}"
+    tagged_vlans: "{{tagged_vlans}}"
     "!ref": "ref"
 {%- endmacro %}
 
@@ -94,4 +95,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
-  {{ l2_interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', "description", "tagged", ref='device_wrx_b_' + 'GigabitEthernet1/0/12') }}
+  {{ l2_interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', "description", "tagged", ['!ref:vlan100', '!ref:vlan200'], 'device_wrx_b_' + 'GigabitEthernet1/0/12') }}
