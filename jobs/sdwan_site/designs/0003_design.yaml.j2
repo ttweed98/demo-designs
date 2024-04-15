@@ -12,9 +12,9 @@
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
-{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}) -%}
+{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}, ref=None) -%}
   - "!create_or_update:name": "{{ name }}"
-    device_type__slug: "{{ device_type_slug }}"
+    device_type_slug: "{{ device_type }}"
     device_role__slug: "{{ device_role_slug }}"
     site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
@@ -23,7 +23,7 @@
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
-    "!ref": "{{ name }}"
+    "!ref": "{{ ref if ref else name }}"
 {%- endmacro %}
 
 {% macro vlan(vid, name, status_name, site_name, description, tenant_name) -%}
@@ -61,7 +61,7 @@
 
 {% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans=[]) -%}
   - "!create_or_update:name": "{{ name }}"
-    device: "!ref:{{ device_ref }}"
+    device: "{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
@@ -83,8 +83,8 @@ device_types:
     {{ device_type('cisco8200', 'cisco') }}
 
 devices:
-  {{ device(site_name + '-WRX-B', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
-  {{ device(site_name + '-WRX-A', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+  {{ device(site_name + '-WRX-B', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned', ref='device_wrx_b') }}
+  {{ device(site_name + '-WRX-A', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned', ref='device_wrx_a') }}
 
 roles:
   {{ ipam_role('wanswitch_vlans', 100) }}
@@ -95,4 +95,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
- {{ l2_interface('GigabitEthernet0/0/0', site_name + '-WRX-B', 'Active', '1000base-t', 'GigabitEthernet0/0/0', 'tagged', [100, 200]) }}
+ {{ l2_interface('GigabitEthernet0/0/0', '!ref:device_wrx_b', 'Active', '1000base-t', 'GigabitEthernet0/0/0', 'tagged', [100, 200]) }}
