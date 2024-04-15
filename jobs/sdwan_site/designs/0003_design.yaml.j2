@@ -89,3 +89,7 @@ devices:
 roles:
   {{ ipam_role('wanswitch_vlans', 100) }}
   {{ ipam_role(site_name | lower + '_ipam', 100) }}
+
+vlans:
+  {{ vlan(100, 'VLAN100', 'Active', site_name, 'VLAN100', tenant_name) }}
+  {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
