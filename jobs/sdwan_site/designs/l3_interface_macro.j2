@@ -1,0 +1,16 @@
+{% macro l3_interface(name, device, status_name, type, description, ref, address, vrf_name, tenant_name) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "{{ device }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    "!ref": "{{ ref }}"
+    ip_addresses:
+      - "!create_or_update:address": "{{ address }}"
+        status__name: "Reserved"
+        description: "{{ description }}"
+        {% if vrf_name %}
+        vrf__name: "{{ vrf_name }}"
+        {% endif %}
+        tenant__name: "{{ tenant_name }}"
+{%- endmacro %}

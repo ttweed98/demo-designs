@@ -1,0 +1,9 @@
+{% import 'device_macro.j2' as device %}
+{% import 'l2_interface_macro.j2' as l2 %}
+{% import 'l3_interface_macro.j2' as l3 %}
+{% import 'prefix_macro.j2' as prefix %}
+{% import 'ip_address_macro.j2' as ip %}
+
+devices:
+  # Use the device macro to define a device
+  {{ device.device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned', local_context_data, 'device_wrx_b') }}

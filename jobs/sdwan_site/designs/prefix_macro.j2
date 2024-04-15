@@ -1,0 +1,8 @@
+{% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
+  - "!create_or_update:prefix": "{{ prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_ipam"
+{%- endmacro %}

@@ -1,0 +1,17 @@
+{% macro l2_interface(name, device, status_name, type, description, ref, mode=None, tagged_vlans=None) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "{{ device }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    "!ref": "{{ ref }}"
+    {% if mode %}
+    mode: "{{ mode }}"
+    {% endif %}
+    {% if tagged_vlans %}
+    tagged_vlans:
+      {% for vlan in tagged_vlans %}
+      - "!ref": "{{ vlan }}"
+      {% endfor %}
+    {% endif %}
+{%- endmacro %}
