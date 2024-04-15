@@ -55,8 +55,8 @@ devices:
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/5', 'tagged', ['vlan601', 'vlan603', 'vlan604']) }}
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/6', 'tagged', ['vlan611', 'vlan612']) }}
   
-  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf, local_context_data={"ospf": {"loopback1": {}}}) }}
-  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback2', get_site_interface_ip(device_name_b, 'loopback2'), management_vrf, local_context_data={"ospf": {"loopback2": {}}}) }}
+  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf) }}
+  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback2', get_site_interface_ip(device_name_b, 'loopback2'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1651', get_management_interface_ip(device_name_b, 'vlan1651'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1650', get_site_interface_ip(device_name_b, 'vlan1650'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1700', get_site_interface_ip(device_name_b, 'vlan1700'), management_vrf) }}
