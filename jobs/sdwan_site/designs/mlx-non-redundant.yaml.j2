@@ -13,7 +13,7 @@
 {% set device_platform = "cisco_iosxe" %}
 {% set management_vrf = 'kgs_management' %}
 {% set guest_vrf = 'guest' %}
-{% set redundancy_group_name = site_name + 'vrrp' %}
+{% set redundancy_group_name = site_name | lower + '_wanswitch_vrrp' %}
 
 roles:
   {{ create.ipam_role(vlan_role) }}
