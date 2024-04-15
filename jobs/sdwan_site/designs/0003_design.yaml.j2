@@ -60,7 +60,7 @@
 {%- endmacro %}
 
 {% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans=[]) -%}
-  - "!create_or_update:name": "{{ name }}"
+    "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
