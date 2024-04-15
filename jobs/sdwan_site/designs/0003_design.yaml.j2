@@ -1,4 +1,4 @@
-{% macro device_type(slug, u_height) -%}
+{% macro device_type(slug) -%}
   - "!create_or_update:name": "{{ slug }}"
     slug: "{{ slug }}"
     "!ref": "{{ slug }}"
@@ -78,6 +78,8 @@
     role__name: "{{ site_name }}_ipam"
 {%- endmacro %}
 
+device_types:
+    {{ device_type('Cisco8200') }}
 
 devices:
   {{ device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
