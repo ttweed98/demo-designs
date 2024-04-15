@@ -12,9 +12,13 @@ roles:
   {{ create.ipam_role(vlan_role) }}
   {{ create.ipam_role(ipam_role) }}
 
-device_types:
-  {{ create.device_type(device_type, device_manufacturer) }}
-
 prefixes:
   {{ create.prefix(site_prefix, site_name, status_name, 'Site Subnet', tenant_name, ipam_role) }}
   {{ create.prefix(management_prefix, site_name, status_name, 'KGS Management Prefixes', tenant_name, ipam_role) }}
+
+device_types:
+  {{ create.device_type(device_type, device_manufacturer) }}
+
+devices:
+  {{ create.device(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
+  {{ create.device(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
