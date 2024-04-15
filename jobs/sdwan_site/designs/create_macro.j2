@@ -94,40 +94,6 @@
           {% endfor %}
 {%- endmacro %}
 
-{% macro l3_interface(name, address, device_ref, status_name, type, description, tenant_name, vrf_name=None) -%}
-  - name: "{{ name }}"
-    device: "!ref:{{ device_ref }}"
-    status__name: "{{ status_name }}"
-    type: "{{ type }}"
-    description: "{{ description }}"
-    "!ref": "{{ device_ref }}:{{ name }}"
-    ip_addresses:
-      - "!create_or_update:address": "{{ address }}"
-        status__name: "Reserved"
-        description: "{{ description }}-address"
-        {% if vrf_name %}
-        vrf__name: "{{ vrf_name }}"
-        {% endif %}
-        tenant__name: "{{ tenant_name }}"
-        "!ref": "{{ device_ref }}:{{ name }}-address"
-{%- endmacro %}
-
-{% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans) -%}
-  - "!create_or_update:name": "{{ name }}"
-    device: "!ref:{{ device_ref }}"
-    status__name: "{{ status_name }}"
-    type: "{{ type }}"
-    description: "{{ description }}"
-    mode: "{{ mode }}"
-    {% if tagged_vlans|length > 0 %}
-    tagged_vlans:
-      {% for tag in tagged_vlans %}
-        - "!ref:{{ tag }}"
-      {% endfor %}
-    {% endif %}
-    "!ref": "{{ device_ref }}:{{ name }}"
-{%- endmacro %}
-
 {% macro prefix(prefix, site_name, status_name, description, tenant_name, role_name) -%}
   - "!create_or_update:prefix": "{{ prefix }}"
     site__name: "{{ site_name }}"
