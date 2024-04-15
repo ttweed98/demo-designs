@@ -85,4 +85,4 @@ devices:
 
 roles:
   {{ ipam_role('wanswitch_vlans', 100) }}
-  {{ ipam_role(site_name + '_ipam', 100) }}
+  {{ ipam_role(site_name | lower + '_ipam', 100) }}
