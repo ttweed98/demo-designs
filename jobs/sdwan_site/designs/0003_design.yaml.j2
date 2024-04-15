@@ -68,13 +68,12 @@
     tagged_vlans: "{{ tagged_vlans }}"
 {%- endmacro %}
 
-{% macro interface(name, device_ref, status_name, type, description, ref, mode=None, tagged_vlans=[], ip_addresses=[]) -%}
+{% macro interface(name, device_ref, status_name, type, description, ref, mode, tagged_vlans=[]) -%}
   - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
-    "!ref": "{{ ref }}"
     mode: "{{ mode }}"
     tagged_vlans: "{{ tagged_vlans }}"
 {%- endmacro %}
