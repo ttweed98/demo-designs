@@ -59,4 +59,4 @@ interface_redundancy_groups:
 
 interface_redundancy_group_associations:
   {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback1', redundancy_group_name, 110)}}
-  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback2', redundancy_group_name, 120)}}
+  {{ create.interface_redundancy_group_association(device_name_a|lower, 'loopback1', redundancy_group_name, 120)}}
