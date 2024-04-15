@@ -1,0 +1,101 @@
+{% macro device_type(slug, manufacturer_slug) -%}
+    "!create_or_update:model": "{{ slug }}"
+    slug: "{{ slug }}"
+    manufacturer__slug: "{{ manufacturer_slug }}"
+    "!ref": "{{ slug }}"
+{%- endmacro %}
+
+{% macro ipam_role(slug, weight) -%}
+  - "!create_or_update:name": "{{ slug }}"
+    slug: "{{ slug }}"
+    weight: "{{ weight }}"
+    "!ref": "{{ slug }}"
+{%- endmacro %}
+
+{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, ref, local_context_data={}) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device_type__slug: "{{ device_type_slug }}"
+    device_role__slug: "{{ device_role_slug }}"
+    site__name: "{{ site_name }}"
+    tenant__name: "{{ tenant_name }}"
+    platform__name: "{{ platform_name }}"
+    status__name: "{{ status_name }}"
+    {% if local_context_data %}
+    local_context_data: "{{ local_context_data }}"
+    {% endif %}
+    "!ref": "{{ ref }}"
+{%- endmacro %}
+
+{% macro vlan(vid, name, status_name, site_name, description, tenant_name) -%}
+  - "!create_or_update:vid": "{{ vid }}"
+    name: "{{ name }}"
+    status__name: "{{ status_name }}"
+    site__name: "{{ site_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "wanswitch_vlans"
+    "!ref": "vlan{{ vid }}"
+{%- endmacro %}
+
+{% macro vrf(name, description, tenant_name) -%}
+  - "!create_or_update:name": "{{ name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "{{ name }}"
+{%- endmacro %}
+
+{% macro l3_interface(name, device_ref, status_name, type, description, ref, address, tenant_name, vrf_name=None) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "!ref:{{ device_ref }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    "!ref": "{{ ref }}"
+    ip_addresses:
+      - "!create_or_update:address": "{{ address }}"
+        status__name: "Reserved"
+        description: "{{ description }}-address"
+        {% if vrf_name %}
+        vrf__name: "{{ vrf_name }}"
+        {% endif %}
+        tenant__name: "{{ tenant_name }}"
+{%- endmacro %}
+
+{% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans, ref) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "!ref:{{ device_ref }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    mode: "{{ mode }}"
+    tagged_vlans:
+    {% for tag in tagged_vlans %}
+      - "!ref:{{ tag }}"
+    {% endfor %}
+    "!ref": "ref"
+{%- endmacro %}
+
+{% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
+  - "!create_or_update:prefix": "{{ prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_ipam"
+{%- endmacro %}
+
+{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip, ref) -%}
+  - "!create_or_update:name": "{{ name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    protocol: "{{ protocol }}"
+    protocol_group_id: "{{ protocol_group_id }}"
+    virtual_ip: "!ref:{{ virtual_ip }}"
+    "!ref": "{{ ref }}"
+{%- endmacro %}
+
+{% macro interface_redundancy_group_association(interface, interface_redundancy_group, priority) -%}
+  - "!create_or_update:interface": "!ref:{{ interface }}"
+    interface_redundancy_group: "!ref:{{ interface_redundancy_group }}"
+    priority: "{{ priority }}"
+{%- endmacro %}
