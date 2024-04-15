@@ -24,22 +24,21 @@ device_types:
   {{ create.device_type(device_type, device_manufacturer) }}
 
 vlans:
-  {{ create.vlan(999, "sinkhole", "Active", site_name, "sinkhole", vlan_role) }}
-  {{ create.vlan(500, "B-Biz-Internet", "Active", site_name, "B-Biz-Internet", vlan_role) }}
-  {{ create.vlan(501, "A-Public-Internet", "Active", site_name, "A-Public-Internet", vlan_role) }}
-  {{ create.vlan(502, "B-LTE", "Active", site_name, "B-LTE", vlan_role) }}
-  {{ create.vlan(503, "A-MPLS-Internet", "Active", site_name, "A-MPLS-Internet", vlan_role) }}
-  {{ create.vlan(1650, "WRX-to-Edge", "Active", site_name, "WRX-to-Edge") }}
-  {{ create.vlan(1651, "vlan1651", "Active", site_name, "sitevlans", vlan_role) }}
-  {{ create.vlan(1700, "WRX-A-to-WRX-B", "Active", site_name, "WRX-A-to-WRX-B", vlan_role) }}
-  {{ create.vlan(1702, "WRX-B-to-LAN", "Active", site_name, "WRX-B-to-LAN", vlan_role) }}
-  {{ create.vlan(1711, "vlan1711", "Active", site_name, "sitevlans", vlan_role) }}
-  {{ create.vlan(601, "Guest-WRX-B--EdgeB", "Active", site_name, "Guest-WRX-B--EdgeB", vlan_role) }}
-  {{ create.vlan(603, "Guest-WRX-A--Edge-B", "Active", site_name, "Guest-WRX-A--Edge-B", vlan_role) }}
-  {{ create.vlan(604, "Guest-WRX-B--EdgeA", "Active", site_name, "Guest-WRX-B--EdgeA", vlan_role) }}
-  {{ create.vlan(611, "Guest-Services", "Active", site_name, "Guest-Services", vlan_role) }}
-  {{ create.vlan(612, "name DIA-Provisioning", "Active", site_name, "name DIA-Provisioning", vlan_role) }}
-
+  {{ create.vlan(999, "sinkhole", 'Active', site_name, "sinkhole", tenant_name, vlan_role) }}
+  {{ create.vlan(500, "B-Biz-Internet", 'Active', site_name, "B-Biz-Internet", tenant_name, vlan_role) }}
+  {{ create.vlan(501, "A-Public-Internet", 'Active', site_name, "A-Public-Internet", tenant_name, vlan_role) }}
+  {{ create.vlan(502, "B-LTE", 'Active', site_name, "B-LTE", tenant_name, vlan_role) }}
+  {{ create.vlan(503, "A-MPLS-Internet", 'Active', site_name, "A-MPLS-Internet", tenant_name, vlan_role) }}
+  {{ create.vlan(1650, "WRX-to-Edge", 'Active', site_name, "WRX-to-Edge", tenant_name, vlan_role) }}
+  {{ create.vlan(1651, "vlan1651", 'Active', site_name, "sitevlans", tenant_name, vlan_role) }}
+  {{ create.vlan(1700, "WRX-A-to-WRX-B", 'Active', site_name, "WRX-A-to-WRX-B", tenant_name, vlan_role) }}
+  {{ create.vlan(1702, "WRX-B-to-LAN", 'Active', site_name, "WRX-B-to-LAN", tenant_name, vlan_role) }}
+  {{ create.vlan(1711, "vlan1711", 'Active', site_name, "sitevlans", tenant_name, vlan_role) }}
+  {{ create.vlan(601, "Guest-WRX-B--EdgeB", 'Active', site_name, "Guest-WRX-B--EdgeB", tenant_name, vlan_role) }}
+  {{ create.vlan(603, "Guest-WRX-A--Edge-B", 'Active', site_name, "Guest-WRX-A--Edge-B", tenant_name, vlan_role) }}
+  {{ create.vlan(604, "Guest-WRX-B--EdgeA", 'Active', site_name, "Guest-WRX-B--EdgeA", tenant_name, vlan_role) }}
+  {{ create.vlan(611, "Guest-Services", 'Active', site_name, "Guest-Services", tenant_name, vlan_role) }}
+  {{ create.vlan(612, "name DIA-Provisioning", 'Active', site_name, "DIA-Provisioning", tenant_name, vlan_role) }}
 
 devices:
   {{ create.device(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
