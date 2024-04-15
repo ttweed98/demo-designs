@@ -4,8 +4,8 @@
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
-{% macro ipam_role(name, slug, weight) -%}
-  - "!create_or_update:name": "{{ name }}"
+{% macro ipam_role(slug, weight) -%}
+  - "!create_or_update:name": "{{ slug }}"
     slug: "{{ slug }}"
     weight: "{{ weight }}"
     "!ref": "{{ slug }}"
@@ -81,3 +81,7 @@
 
 devices:
   {{ device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+
+role:
+  {{ ipam_role('wanswitch_vlans', 100) }}
+  {{ ipam_role(site_name + '_ipam', 100) }}
