@@ -46,7 +46,7 @@
 {%- endmacro %}
 
 {% macro l3_interface(name, address, device_ref, status_name, type, description, tenant_name, vrf_name=None) -%}
-  - name: "{{ name }}"
+  - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
@@ -64,7 +64,7 @@
 {%- endmacro %}
 
 {% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans) -%}
-  - name: "{{ name }}"
+  - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
