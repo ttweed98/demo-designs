@@ -9,12 +9,12 @@
 {% set device_manufacturer = 'cisco' %}
 
 roles:
- {{ create.ipam_role(vlan_role_name, 100) }}
- {{ create.ipam_role(ipam_role_name, 100) }}
+ {{ create.ipam_role(vlan_role, 100) }}
+ {{ create.ipam_role(ipam_role, 100) }}
 
 device_types:
   {{ create.device_type(device_type, device_manufacturer) }}
 
 prefixes:
   {{ create.prefix(site_prefix, site_name, status_name, 'Site Subnet', tenant_name) }}
-  {{ create.prefix(management_prefix, site_name, status_name, 'KGS Management Prefixes', tenant_name, ipam_role_name) }}
+  {{ create.prefix(management_prefix, site_name, status_name, 'KGS Management Prefixes', tenant_name, ipam_role) }}
