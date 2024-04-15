@@ -60,6 +60,7 @@
         vrf__name: "{{ vrf_name }}"
         {% endif %}
         tenant__name: "{{ tenant_name }}"
+        "!ref": "{{ device_ref }}:{{ name }}-address"
 {%- endmacro %}
 
 {% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans) -%}
@@ -87,13 +88,13 @@
     role__name: "{{ role_name }}"
 {%- endmacro %}
 
-{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip) -%}
+{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, device, interface) -%}
   - "!create_or_update:name": "{{ name }}"
     status__name: "{{ status_name }}"
     description: "{{ description }}"
     protocol: "{{ protocol }}"
     protocol_group_id: "{{ protocol_group_id }}"
-    virtual_ip: "{{ virtual_ip }}"
+    virtual_ip: "!ref:{{ device }:{{ interface }}-address"
     "!ref": "{{ name }}"
 {%- endmacro %}
 
