@@ -70,7 +70,7 @@
 
 {% macro interface(name, device_ref, status_name, type, description, ref, mode=None, tagged_vlans=[], ip_addresses=[]) -%}
   - "!create_or_update:name": "{{ name }}"
-    device: "{{ device_ref }}"
+    device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
@@ -118,4 +118,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
-  {{ interface('GigabitEthernet1/0/12', site_name + '-WRX-B', 'Planned', '1000base-t', 'CX: ' + site_name + '-FW-Guest-Services_WAN1', 'interface_GigabitEthernet1/0/12', 'tagged', ['!ref:vlan100', '!ref:vlan200']) }}
+  {{ interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', 'CX: ' + site_name + '-FW-Guest-Services_WAN1', 'interface_GigabitEthernet1/0/12', 'tagged', ['!ref:vlan100', '!ref:vlan200']) }}
