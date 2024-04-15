@@ -93,7 +93,7 @@
     description: "{{ description }}"
     protocol: "{{ protocol }}"
     protocol_group_id: "{{ protocol_group_id }}"
-    virtual_ip: "!ref:{{ virtual_ip }}"
+    virtual_ip: "{{ virtual_ip }}"
     "!ref": "{{ name }}"
 {%- endmacro %}
 

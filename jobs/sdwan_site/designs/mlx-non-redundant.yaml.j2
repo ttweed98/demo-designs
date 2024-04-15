@@ -62,5 +62,8 @@ interfaces:
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
 
+
+{% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip) -%}
+
 interface_redundancy_groups:
   {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', get_management_interface_ip(device_name_b, 'vlan1711'))}}
