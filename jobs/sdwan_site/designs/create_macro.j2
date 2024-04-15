@@ -69,10 +69,12 @@
     type: "{{ type }}"
     description: "{{ description }}"
     mode: "{{ mode }}"
+    {% if tagged_vlans|length > 0 %}
     tagged_vlans:
-    {% for tag in tagged_vlans %}
-      - "!ref:{{ tag }}"
-    {% endfor %}
+      {% for tag in tagged_vlans %}
+        - "!ref:{{ tag }}"
+      {% endfor %}
+    {% endif %}
     "!ref": "{{ device_ref }}:{{ name }}"
 {%- endmacro %}
 
