@@ -14,7 +14,8 @@
 {% set guest_vrf = 'guest' %}
 {% set redundancy_group_name = site_name | lower + '_wanswitch_vrrp' %}
 
-{% set local_context = '{"ospf": { "loopback1": { "id": 2, "area": 0 } }}' %}
+{% set local_context = '{\"ospf\": { \"loopback1\": { \"id\": 2, \"area\": 0 } }}' %}
+
 
 
 roles:
