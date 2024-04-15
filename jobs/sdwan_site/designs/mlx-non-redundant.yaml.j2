@@ -14,7 +14,7 @@
 {% set guest_vrf = 'guest' %}
 {% set redundancy_group_name = site_name | lower + '_wanswitch_vrrp' %}
 
-{% set local_context = {"ospf": { "loopback1": { "id": 2, "area": 0 } }} %}
+{% set local_context = '{"ospf": { "loopback1": { "id": 2, "area": 0 } }}' %}
 
 
 roles:
@@ -57,7 +57,7 @@ devices:
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/5', 'tagged', ['vlan601', 'vlan603', 'vlan604']) }}
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/6', 'tagged', ['vlan611', 'vlan612']) }}
   
-  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf, {"ospf": { "loopback1": { "id": 2, "area": 0 } }}) }}
+  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf, local_context) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback2', get_site_interface_ip(device_name_b, 'loopback2'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1651', get_management_interface_ip(device_name_b, 'vlan1651'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1650', get_site_interface_ip(device_name_b, 'vlan1650'), management_vrf) }}
