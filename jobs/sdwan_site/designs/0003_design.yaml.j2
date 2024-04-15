@@ -12,7 +12,7 @@
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
-{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}, ref=None) -%}
+{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}) -%}
   - "!create_or_update:name": "{{ name }}"
     device_type__slug: "{{ device_type_slug }}"
     device_role__slug: "{{ device_role_slug }}"
@@ -23,7 +23,7 @@
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
-    "!ref": "{{ ref if ref else name }}"
+    "!ref": "{{ name }}"
 {%- endmacro %}
 
 {% macro vlan(vid, name, status_name, site_name, description, tenant_name) -%}
