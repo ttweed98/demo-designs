@@ -80,11 +80,11 @@
 {%- endmacro %}
 
 device_types:
-    {{ device_type('cisco8200', 'cisco') }}
+    {{ device_type('8200', 'cisco') }}
 
 devices:
-  {{ device(site_name + '-WRX-B', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
-  {{ device(site_name + '-WRX-A', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+  {{ device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+  {{ device(site_name + '-WRX-A', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
 
 roles:
   {{ ipam_role('wanswitch_vlans', 100) }}
