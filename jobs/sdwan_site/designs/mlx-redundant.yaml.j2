@@ -47,20 +47,66 @@ vlans:
   {{ create.vlan(611, "Guest-Services", 'Active', site_name, "Guest-Services", tenant_name, vlan_role) }}
   {{ create.vlan(612, "name DIA-Provisioning", 'Active', site_name, "DIA-Provisioning", tenant_name, vlan_role) }}
 
+  interface vlan1651
+ip ospf network point-to-point
+ip ospf 2 area 0
+!
+interface vlan1700
+ip ospf network point-to-point
+ip ospf 1 area 0
+shut
+!
+interface vlan1711
+ip ospf network point-to-point
+ip ospf 2 area 0
+shut
+!
+interface vlan601
+ip ospf network point-to-point
+ip ospf 3 area 0
+!
+interface vlan611
+ip ospf 3 area 0
+ 
+interface vlan612
+ip ospf 3 area 0
+
 {% macro update_device_local_context(name) -%}
   - "!create_or_update:name": "{{ name }}"
     local_context_data:
       ospf:
         loopback1:
-             area: 0
-             pid: 2
+          area: 0
+          pid: 2
         loopback2:
-             area: 0
-             pid: 1
+          area: 0
+          pid: 1
         vlan1650:
-             area: 0
-             pid: 1
-             network: point-to-point
+          area: 0
+          pid: 1
+          network: point-to-point
+        vlan1651:
+          area: 0
+          pid: 3
+          network: point-to-point
+        vlan1700:
+          area: 0
+          pid: 1
+          network: point-to-point
+        vlan1711:
+          area: 0
+          pid: 1
+          network: point-to-point
+        vlan601:
+          area: 0
+          pid: 3
+          network: point-to-point
+        vlan611:
+          area: 0
+          pid: 3
+        vlan612:
+          area:0
+          pid: 3
 {%- endmacro %}
 
 devices:
