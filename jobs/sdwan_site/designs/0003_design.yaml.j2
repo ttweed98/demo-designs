@@ -118,4 +118,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
- {{ l2_interface('GigabitEthernet0/0/0', '!ref:device_wrx_b', 'Active', '1000base-t', 'description', 'tagged') }}
+  {{ interface('GigabitEthernet1/0/12', site_name + '-WRX-B', 'Planned', '1000base-t', 'CX: ' + site_name + '-FW-Guest-Services_WAN1', 'interface_GigabitEthernet1/0/12', 'tagged', ['!ref:vlan100', '!ref:vlan200']) }}
