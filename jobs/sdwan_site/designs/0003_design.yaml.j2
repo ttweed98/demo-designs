@@ -100,4 +100,4 @@ vlans:
 
 interfaces:
   {{ l2_interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', "description", "tagged", ["vlan100", "vlan200"], 'device_wrx_b_' + 'GigabitEthernet1/0/12') }}
-  {{ l3_interface('loopback1', 'device_wrx_b', 'Planned', 'loopback', 'description', 'device_wrx_b_loopback1', get_management_interface_ip(site_name + '-WRX-B', 'loopback1'), tenant_name }}
+  {{ l3_interface('loopback1', 'device_wrx_b', 'Planned', 'loopback', 'description', 'device_wrx_b_loopback1', get_management_interface_ip(site_name + '-WRX-B', 'loopback1'), tenant_name) }}
