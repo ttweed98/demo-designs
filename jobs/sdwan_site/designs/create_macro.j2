@@ -62,7 +62,7 @@
         tenant__name: "{{ tenant_name }}"
 {%- endmacro %}
 
-{% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans, ref) -%}
+{% macro l2_interface(name, device_ref, status_name, type, description, mode, tagged_vlans) -%}
   - "!create_or_update:name": "{{ name }}"
     device: "!ref:{{ device_ref }}"
     status__name: "{{ status_name }}"
@@ -73,7 +73,7 @@
     {% for tag in tagged_vlans %}
       - "!ref:{{ tag }}"
     {% endfor %}
-    "!ref": "ref"
+    "!ref": "{{ device_ref }}:{{ name }}"
 {%- endmacro %}
 
 {% macro prefix(prefix, site_name, status_name, description, tenant_name, role_name) -%}

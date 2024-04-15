@@ -43,3 +43,7 @@ vlans:
 devices:
   {{ create.device(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
   {{ create.device(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
+
+
+interfaces:
+  {{ create.l2_interface('GigabitEthernet0/0/0', device_name_a|lower, 'virtual', 'test interface', 'tagged', ['vlan500']) }}
