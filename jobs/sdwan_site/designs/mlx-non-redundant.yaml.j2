@@ -10,7 +10,7 @@
 {% set device_manufacturer = 'cisco' %}
 {% set device_name_b = site_name + '-WRX-B' %}
 {% set device_name_a = site_name + '-WRX-A' %}
-{% set device_platform == "cisco_iosxe" %}
+{% set device_platform = "cisco_iosxe" %}
 
 roles:
   {{ create.ipam_role(vlan_role) }}
