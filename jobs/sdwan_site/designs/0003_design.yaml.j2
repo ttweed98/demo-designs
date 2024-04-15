@@ -1,11 +1,83 @@
-{% import 'designs/device_macro.j2' as device %}
-{% import 'designs/l2_interface_macro.j2' as l2 %}
-{% import 'designs/l3_interface_macro.j2' as l3 %}
-{% import 'designs/prefix_macro.j2' as prefix %}
-{% import 'designs/vlan_macro.j2' as vlan %}
+{% macro device_type(slug, u_height) -%}
+  - "!create_or_update:name": "{{ slug }}"
+    slug: "{{ slug }}"
+    "!ref": "{{ slug }}"
+{%- endmacro %}
+
+{% macro role(name, slug, weight) -%}
+  - "!create_or_update:name": "{{ name }}"
+    slug: "{{ slug }}"
+    weight: "{{ weight }}"
+    "!ref": "{{ slug }}"
+{%- endmacro %}
+
+{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}, ref=None) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device_type_slug: "{{ device_type }}"
+    device_role__slug: "{{ device_role_slug }}"
+    site__name: "{{ site_name }}"
+    tenant__name: "{{ tenant_name }}"
+    platform__name: "{{ platform_name }}"
+    status__name: "{{ status_name }}"
+    {% if local_context_data %}
+    local_context_data: "{{ local_context_data }}"
+    {% endif %}
+    "!ref": "{{ ref if ref else name }}"
+{%- endmacro %}
+
+{% macro vlan(vid, name, status_name, site_name, description, tenant_name) -%}
+  - "!create_or_update:vid": "{{ vid }}"
+    name: "{{ name }}"
+    status__name: "{{ status_name }}"
+    site__name: "{{ site_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "wanswitch_vlans"
+    "!ref": "vlan{{ vid }}"
+{%- endmacro %}
+
+{% macro vrf(name, description, tenant_name) -%}
+  - "!create_or_update:name": "{{ name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    "!ref": "{{ name }}"
+{%- endmacro %}
+
+{% macro l3_interface(name, device_ref, status_name, type, description, ref, address, vrf_name, tenant_name) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "{{ device_ref }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    "!ref": "{{ ref }}"
+    ip_addresses:
+      - "!create_or_update:address": "{{ address }}"
+        status__name: "Reserved"
+        description: "{{ description }}-address"
+        vrf__name: "{{ vrf_name }}"
+        tenant__name: "{{ tenant_name }}"
+{%- endmacro %}
+
+{% macro l2_interface(name, device_ref, status_name, type, description, ref, mode, tagged_vlans) -%}
+  - "!create_or_update:name": "{{ name }}"
+    device: "{{ device_ref }}"
+    status__name: "{{ status_name }}"
+    type: "{{ type }}"
+    description: "{{ description }}"
+    "!ref": "{{ ref }}"
+    mode: "{{ mode }}"
+    tagged_vlans: "{{ tagged_vlans }}"
+{%- endmacro %}
+
+{% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
+  - "!create_or_update:prefix": "{{ prefix }}"
+    site__name: "{{ site_name }}"
+    status__name: "{{ status_name }}"
+    description: "{{ description }}"
+    tenant__name: "{{ tenant_name }}"
+    role__name: "{{ site_name }}_ipam"
+{%- endmacro %}
+
 
 devices:
-  {{ device.device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned' ) }}
-
-vlans:
-  {{ vlan.vlan(1650, 'Engineering', 'Active', site_name, 'Engineering' }}
+  {{ device.device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
