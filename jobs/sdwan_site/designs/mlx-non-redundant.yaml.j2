@@ -48,34 +48,5 @@ vlans:
   {{ create.vlan(612, "name DIA-Provisioning", 'Active', site_name, "DIA-Provisioning", tenant_name, vlan_role) }}
 
 devices:
-  {{ create.device(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
-  {{ create.device(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status) }}
-
-interfaces:
-  {{ create.l2_interface('GigabitEthernet1/0/1', device_name_b|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/0', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
-  {{ create.l2_interface('GigabitEthernet1/0/2', device_name_b|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/1', 'tagged', ['vlan1650', 'vlan1651', 'vlan601', 'vlan603']) }}
-  {{ create.l2_interface('GigabitEthernet1/0/5', device_name_b|lower, 'Planned', 'virtual', '{{ site_name }}-WRX-B-to-LAN', 'tagged', []) }}
-  {{ create.l2_interface('GigabitEthernet1/0/12', device_name_b|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-FW-Guest-Services_WAN1', 'tagged', ['vlan611', 'vlan612']) }}
-  {{ create.l3_interface('loopback1', get_management_interface_ip(device_name_b, 'loopback1'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name, management_vrf) }}
-  {{ create.l3_interface('loopback2', get_site_interface_ip(device_name_b, 'loopback2'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-  {{ create.l3_interface('vlan1651', get_management_interface_ip(device_name_b, 'vlan1651'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-  {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-
-  {{ create.l2_interface('GigabitEthernet1/0/1', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/0', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
-  {{ create.l2_interface('GigabitEthernet1/0/2', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/1', 'tagged', ['vlan1650', 'vlan1651', 'vlan601', 'vlan603']) }}
-  {{ create.l2_interface('GigabitEthernet1/0/5', device_name_a|lower, 'Planned', 'virtual', '{{ site_name }}-WRX-B-to-LAN', 'tagged', []) }}
-  {{ create.l2_interface('GigabitEthernet1/0/12', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-FW-Guest-Services_WAN1', 'tagged', ['vlan611', 'vlan612']) }}
-  {{ create.l3_interface('loopback1', get_management_interface_ip(device_name_a, 'loopback1'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name, management_vrf) }}
-  {{ create.l3_interface('loopback2', get_site_interface_ip(device_name_a, 'loopback2'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-  {{ create.l3_interface('vlan1651', get_management_interface_ip(device_name_a, 'vlan1651'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-  {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_a, 'vlan1711'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
-
-
-
-interface_redundancy_groups:
-  {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', device_name_b|lower, 'loopback1') }}
-
-
-interface_redundancy_group_associations:
-  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback1', redundancy_group_name, 110)}}
-  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback2', redundancy_group_name, 120)}}
+  {{ device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/1', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503'], vrf_name=None) }}
+  {{ device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_a, 'loopback1'), management_vrf) }}
