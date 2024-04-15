@@ -4,7 +4,7 @@
 {% set device_role = 'wanswitch' %}
 {% set status_name = 'Active' %}
 {% set protocol = 'vrrp' %}
-{% set device_manufacturer == 'cisco' %}
+{% set device_manufacturer = 'cisco' %}
 
 device_types:
   {{ create.device_type(device_type, device_manufacturer) }}
