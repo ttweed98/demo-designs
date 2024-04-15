@@ -68,7 +68,7 @@
     mode: "{{ mode }}"
     tagged_vlans: 
     {% for tag in tagged_vlans %}
-      - {{ tag }}
+      - "!ref:{{ tag }}"
     {% endfor %}
     "!ref": "ref"
 {%- endmacro %}
@@ -98,4 +98,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
-  {{ l2_interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', "description", "tagged", ['!ref:vlan100', '!ref:vlan200'], 'device_wrx_b_' + 'GigabitEthernet1/0/12') }}
+  {{ l2_interface('GigabitEthernet1/0/12', 'device_wrx_b', 'Planned', '1000base-t', "description", "tagged", ["vlan100", "vlan200"], 'device_wrx_b_' + 'GigabitEthernet1/0/12') }}
