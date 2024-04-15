@@ -94,7 +94,7 @@
     description: "{{ description }}"
     protocol: "{{ protocol }}"
     protocol_group_id: "{{ protocol_group_id }}"
-    virtual_ip: "!ref:{{ device }:{{ interface }}-address"
+    virtual_ip: "!ref:{{ device }}:{{ interface }}-address"
     "!ref": "{{ name }}"
 {%- endmacro %}
 
