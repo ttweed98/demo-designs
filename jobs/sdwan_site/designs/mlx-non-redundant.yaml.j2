@@ -62,6 +62,17 @@ interfaces:
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
   {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_b, 'vlan1711'), device_name_b|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
 
+  {{ create.l2_interface('GigabitEthernet1/0/1', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/0', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
+  {{ create.l2_interface('GigabitEthernet1/0/2', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-B_GI0/0/1', 'tagged', ['vlan1650', 'vlan1651', 'vlan601', 'vlan603']) }}
+  {{ create.l2_interface('GigabitEthernet1/0/5', device_name_a|lower, 'Planned', 'virtual', '{{ site_name }}-WRX-B-to-LAN', 'tagged', []) }}
+  {{ create.l2_interface('GigabitEthernet1/0/12', device_name_a|lower, 'Planned', 'virtual', 'CX: {{ site_name }}-FW-Guest-Services_WAN1', 'tagged', ['vlan611', 'vlan612']) }}
+  {{ create.l3_interface('loopback1', get_management_interface_ip(device_name_a, 'loopback1'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name, management_vrf) }}
+  {{ create.l3_interface('loopback2', get_site_interface_ip(device_name_a, 'loopback2'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
+  {{ create.l3_interface('vlan1651', get_management_interface_ip(device_name_a, 'vlan1651'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
+  {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_a, 'vlan1711'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
+  {{ create.l3_interface('vlan1711', get_management_interface_ip(device_name_a, 'vlan1711'), device_name_a|lower, 'Active', 'virtual', 'WRX-A-to-WRX-B', tenant_name) }}
+
+
 
 interface_redundancy_groups:
   {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', device_name_b|lower, 'loopback1') }}
