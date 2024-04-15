@@ -1,6 +1,7 @@
-{% macro device_type(slug) -%}
-  - "!create_or_update:name": "{{ slug }}"
+{% macro device_type(slug, manufacturer__slug) -%}
+  - "!create_or_update:model": "{{ slug }}"
     slug: "{{ slug }}"
+    manufacturer__slug: "{{ manufacturer__slug }}"
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
@@ -79,11 +80,11 @@
 {%- endmacro %}
 
 device_types:
-    {{ device_type('Cisco8200') }}
+    {{ device_type('cisco8200', 'cisco') }}
 
 devices:
-  {{ device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
-  {{ device(site_name + '-WRX-A', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+  {{ device(site_name + '-WRX-B', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
+  {{ device(site_name + '-WRX-A', 'cisco8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned') }}
 
 roles:
   {{ ipam_role('wanswitch_vlans', 100) }}
