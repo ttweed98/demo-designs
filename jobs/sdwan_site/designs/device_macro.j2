@@ -1,11 +1,11 @@
 {% macro device_type(device_type_slug) -%}
-  - "!create_or_update:slug": "{{ device_type_slug }}"
+    "!create_or_update:slug": "{{ device_type_slug }}"
     name: "{{ device_type_slug }}"
     "!ref": "{{ device_type_slug }}"
 {%- endmacro %}
 
 {% macro device_role(device_role_slug) -%}
-  - "!create_or_update:slug": "{{ device_role_slug }}"
+    "!create_or_update:slug": "{{ device_role_slug }}"
     name: "{{ device_role_slug }}"
     "!ref": "{{ device_role_slug }}"
 {%- endmacro %}
