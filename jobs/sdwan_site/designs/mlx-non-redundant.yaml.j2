@@ -49,4 +49,4 @@ vlans:
 
 devices:
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/1', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
-  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_b, 'loopback1'), management_vrf) }}
+  {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'loopback1', get_management_interface_ip(device_name_a, 'loopback1'), management_vrf) }}

@@ -60,6 +60,8 @@
     "!ref": "{{ name | lower }}"
     interfaces:
       - "!create_or_update:name": "{{ interface_name }}"
+        type: "virtual"
+        status__name: "Active"
         ip_addresses:
           - "!create_or_update:address": "{{ ip_address }}"
             status__name: "Active"
