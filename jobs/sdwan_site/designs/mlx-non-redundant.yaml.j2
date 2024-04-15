@@ -9,8 +9,8 @@
 {% set device_manufacturer = 'cisco' %}
 
 roles:
- {{ create.ipam_role(vlan_role, 1000) }}
- {{ create.ipam_role(ipam_role, 1000) }}
+  {{ create.ipam_role(vlan_role) }}
+  {{ create.ipam_role(ipam_role) }}
 
 device_types:
   {{ create.device_type(device_type, device_manufacturer) }}

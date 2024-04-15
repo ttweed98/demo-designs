@@ -5,12 +5,13 @@
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
-{% macro ipam_role(slug, weight) -%}
+{% macro ipam_role(slug) -%}
   - "!create_or_update:name": "{{ slug }}"
     slug: "{{ slug }}"
-    weight: "{{ weight }}"
+    weight: 1000
     "!ref": "{{ slug }}"
 {%- endmacro %}
+
 
 {% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, ref, local_context_data={}) -%}
   - "!create_or_update:name": "{{ name }}"
