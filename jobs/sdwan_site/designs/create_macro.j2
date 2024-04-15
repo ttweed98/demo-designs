@@ -74,14 +74,15 @@
     site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
     platform__name: "{{ platform_name }}"
-    status__name: "{{ status_name | default('Staged') }}"
-    type: "{{ type | default('virtual')}}"
+    status__name: "{{ status_name }}"
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
     "!ref": "{{ name | lower }}"
     interfaces:
       - "!create_or_update:name": "{{ interface_name }}"
+        type: "virtual"
+        status__name: "Active"
         mode: "{{ mode }}"
         tagged_vlans:
           {% for vlan in tagged_vlans %}
