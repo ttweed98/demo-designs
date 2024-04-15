@@ -6,7 +6,7 @@
 {%- endmacro %}
 
 {% macro ipam_role(slug, weight) -%}
-  - "!create_or_update:name": "{{ slug }}"
+    "!create_or_update:name": "{{ slug }}"
     slug: "{{ slug }}"
     weight: "{{ weight }}"
     "!ref": "{{ slug }}"
