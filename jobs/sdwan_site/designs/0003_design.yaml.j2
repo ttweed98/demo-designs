@@ -2,7 +2,10 @@
 {% import 'designs/l2_interface_macro.j2' as l2 %}
 {% import 'designs/l3_interface_macro.j2' as l3 %}
 {% import 'designs/prefix_macro.j2' as prefix %}
+{% import 'designs/vlan_macro.j2' as vlan %}
 
 devices:
-  # Use the device macro to define a device
   {{ device.device(site_name + '-WRX-B', '8200', 'wanswitch', site_name, tenant_name, 'cisco_iosxe', 'Planned' ) }}
+
+vlans:
+  {{ vlan.vlan(1650, 'Engineering', 'Active', site_name, 'Engineering' }}
