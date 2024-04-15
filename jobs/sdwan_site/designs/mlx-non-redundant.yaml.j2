@@ -65,3 +65,8 @@ interfaces:
 
 interface_redundancy_groups:
   {{ create.interface_redundancy_group(redundancy_group_name, 'Active', 'Interface Redundancy Group', 'vrrp', '14', device_name_b|lower, 'loopback1') }}
+
+
+interface_redundancy_group_associations:
+  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback1', redundancy_group_name, 110)}}
+  {{ create.interface_redundancy_group_association(device_name_b|lower, 'loopback2', redundancy_group_name, 120)}}
