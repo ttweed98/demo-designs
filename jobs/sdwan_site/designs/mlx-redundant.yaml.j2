@@ -47,6 +47,22 @@ vlans:
   {{ create.vlan(611, "Guest-Services", 'Active', site_name, "Guest-Services", tenant_name, vlan_role) }}
   {{ create.vlan(612, "name DIA-Provisioning", 'Active', site_name, "DIA-Provisioning", tenant_name, vlan_role) }}
 
+{% macro update_device_local_context(name) -%}
+  - "!create_or_update:name": "{{ name }}"
+    local_context_data:
+      ospf:
+        loopback1:
+             area: 0
+             pid: 2
+        loopback2:
+             area: 0
+             pid: 1
+        vlan1650:
+             area: 0
+             pid: 1
+             network: point-to-point
+{%- endmacro %}
+
 devices:
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/1', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
   {{ create.device_interface_layer2(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/2', 'tagged', ['vlan1650', 'vlan1651']) }}
@@ -61,6 +77,8 @@ devices:
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1650', get_site_interface_ip(device_name_b, 'vlan1650'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan1700', get_site_interface_ip(device_name_b, 'vlan1700'), management_vrf) }}
   {{ create.device_with_interface_ip(device_name_b, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'vlan601', '1.1.1.1/24', guest_vrf) }}
+
+    {{ update_device_local_context(device_name_b)}}
 
 
   {{ create.device_interface_layer2(device_name_a, device_type, device_role, site_name, tenant_name, device_platform, device_status, 'GigabitEthernet1/0/1', 'tagged', ['vlan500', 'vlan501', 'vlan502', 'vlan503']) }}
