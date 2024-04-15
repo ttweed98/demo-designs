@@ -18,6 +18,8 @@
     tenant__name: "{{ tenant_name }}"
     platform__name: "{{ platform_name }}"
     status__name: "{{ status_name }}"
+    {% if local_context_data %}}
     local_context_data: "{{ local_context_data }}"
+    {% endif %}
     "!ref": "{{ ref if ref else name }}"
 {%- endmacro %}
