@@ -1,7 +1,8 @@
-{% macro device_type(slug, manufacturer__slug) -%}
+{% macro device_type(slug, manufacturer_slug) -%}
   - "!create_or_update:model": "{{ slug }}"
     slug: "{{ slug }}"
-    manufacturer__slug: "{{ manufacturer__slug }}"
+    manufacturer__slug: "{{ manufacturer_slug }}"
+    u_height: 1
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
