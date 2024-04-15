@@ -82,7 +82,7 @@
     status__name: "{{ status_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
-    role__name: "role_name"
+    role__name: "{{ role_name }}"
 {%- endmacro %}
 
 {% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip, ref) -%}
