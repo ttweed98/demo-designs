@@ -75,13 +75,13 @@
     "!ref": "ref"
 {%- endmacro %}
 
-{% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
+{% macro prefix(prefix, site_name, status_name, description, tenant_name, role_name) -%}
     "!create_or_update:prefix": "{{ prefix }}"
     site__name: "{{ site_name }}"
     status__name: "{{ status_name }}"
     description: "{{ description }}"
     tenant__name: "{{ tenant_name }}"
-    role__name: "{{ site_name }}_ipam"
+    role__name: "role_name"
 {%- endmacro %}
 
 {% macro interface_redundancy_group(name, status_name, description, protocol, protocol_group_id, virtual_ip, ref) -%}
