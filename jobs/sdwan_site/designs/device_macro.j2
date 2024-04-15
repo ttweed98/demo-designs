@@ -1,6 +1,6 @@
 {% macro device(name, device_type, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data, ref) -%}
   - "!create_or_update:name": "{{ name }}"
-    device_type: "{{ device_type }}"
+    device_type__slug: "{{ device_type }}"
     device_role__slug: "{{ device_role_slug }}"
     site__name: "{{ site_name }}"
     tenant__name: "{{ tenant_name }}"
