@@ -12,7 +12,7 @@
     "!ref": "{{ slug }}"
 {%- endmacro %}
 
-{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, local_context_data={}, ref=None) -%}
+{% macro device(name, device_type_slug, device_role_slug, site_name, tenant_name, platform_name, status_name, ref, local_context_data={}) -%}
   - "!create_or_update:name": "{{ name }}"
     device_type_slug: "{{ device_type }}"
     device_role__slug: "{{ device_role_slug }}"
@@ -23,7 +23,7 @@
     {% if local_context_data %}
     local_context_data: "{{ local_context_data }}"
     {% endif %}
-    "!ref": "{{ ref if ref else name }}"
+    "!ref": "{{ ref }}"
 {%- endmacro %}
 
 {% macro vlan(vid, name, status_name, site_name, description, tenant_name) -%}
@@ -65,7 +65,6 @@
     status__name: "{{ status_name }}"
     type: "{{ type }}"
     description: "{{ description }}"
-    "!ref": "{{ device_ref + '-' + name }}"
     mode: "{{ mode }}"
     tagged_vlans: "{{ tagged_vlans }}"
 {%- endmacro %}
@@ -95,4 +94,4 @@ vlans:
   {{ vlan(200, 'VLAN200', 'Active', site_name, 'VLAN200', tenant_name) }}
 
 interfaces:
- {{ l2_interface('GigabitEthernet0/0/0', '!ref:device_wrx_b', 'Active', '1000base-t', 'GigabitEthernet0/0/0', 'tagged', [100, 200]) }}
+ {{ l2_interface('GigabitEthernet0/0/0', '!ref:device_wrx_b', 'Active', '1000base-t', 'description', 'tagged', [100, 200]) }}
