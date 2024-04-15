@@ -75,12 +75,8 @@
     type: "{{ type }}"
     description: "{{ description }}"
     "!ref": "{{ ref }}"
-    {% if mode %}
     mode: "{{ mode }}"
-    {% endif %}
-    {% if tagged_vlans %}
     tagged_vlans: "{{ tagged_vlans }}"
-    {% endif %}
 {%- endmacro %}
 
 {% macro prefix(prefix, site_name, status_name, description, tenant_name) -%}
